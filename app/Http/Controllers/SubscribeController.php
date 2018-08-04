@@ -1,0 +1,136 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Subscription;
+
+class SubscribeController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {   
+    	//Se a pessoa for admin ou alguma perfil de organizador ela pode ver os eventos dela gerenciável
+    	if(Auth::user()->hasRole('admin')){
+    		return view('subscription.index');    
+    	}//fazer else if para caso a pessoa tenha algum perfil de público que possa ver o evento não gerenciavel em seu feed
+    	else{
+    		return view('feed.index');    
+    	}
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+    	return view('subscription.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        #Chamando função para verificar se usuário já está inscrito
+        $inscrito = $this->verifySubscriber($request->input('user_id'), $request->input('activity_id'));
+
+        if($inscrito == 0){       
+            $subscription = new Subscription;
+
+            $subscription->user_id = $request->input('user_id');
+            $subscription->activity_id = $request->input('activity_id');
+    	//$subscription->certificate = $request->input('certificate');
+
+            $subscription->save();
+            return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
+        }else{
+            return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');;
+        }
+    }
+
+    public function show($id)
+    {        
+    	return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function manage($id)
+    {
+    	return view('subscription.manage', ['subscriptions' => Subscription::find($id), 'subscriptionId' => $id]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        /*$this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users,email,'. $id .'|max:255',
+        ]);*/
+
+        $subscription = Subscription::find($id);
+        $subscription->user_id = $request->input('user_id');
+        $subscription->activity_id = $request->input('activity_id');
+        $subscription->certificate = $request->input('certificate');
+
+        $subscription->save();
+        return redirect()->action('SubscriptionController@index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+    	$subscription = Subscription::findOrFail($request->input('subscription_id'));
+    	$subscription->delete();
+
+         /*
+        DB::table('subscriptions')
+        ->where('user_id', $request->input('user_id'))
+        ->where('activity_id', $request->input('activity_id'))
+        ->delete(); */ 
+
+        return redirect()->action('FeedController@index'); 
+    }
+
+    public function verifySubscriber($user_id, $activity_id){
+
+        $verificar = Subscription::all()->where('user_id', $user_id)
+        ->where('activity_id', $activity_id);
+        
+        $inscrito = 0;
+
+        foreach ($verificar as $verifica) {
+            if($verifica)
+                $inscrito++;
+        }
+
+        return $inscrito;
+    }
+
+}
