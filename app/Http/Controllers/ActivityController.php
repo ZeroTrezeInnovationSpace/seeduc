@@ -8,6 +8,7 @@ use App\Event;
 use App\Location;
 use App\Speaker;
 use App\Subscription;
+use App\Bond;
 
 class ActivityController extends Controller
 {
@@ -40,7 +41,7 @@ class ActivityController extends Controller
     public function create()
     {
         return view('activity.create', ['events' => Event::all(), 'locations' => Location::all(), 
-            'speakers' => Speaker::all()]);
+            'speakers' => Speaker::all(), 'bonds' => Bond::all()]);
     }
 
     /**
@@ -61,7 +62,7 @@ class ActivityController extends Controller
         $activity->maximum_capacity = $request->input('maximum_capacity');
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
-        //$activity->public_id = $request->input('public_id');
+        $activity->public_id = $request->input('public_id');
     	//$activity->program_id = $request->input('program_id');
     	
     	$activity->save();
