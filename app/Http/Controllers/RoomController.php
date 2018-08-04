@@ -49,30 +49,21 @@ class RoomController extends Controller
     	$room->descripition = $request->input('descripition');
     	$room->capacity = $request->input('capacity');
     	
-    	if(is_null($request->input('avaible_video_projector'))){
-    		$room->avaible_AC = 0;
-    	}else{
-    		$room->avaible_video_projector = $request->input('avaible_video_projector');
-    	}
-
-    	if(is_null($request->input('avaible_AC'))){
-    		$room->avaible_AC = 0;
-    	}else{
-    		$room->avaible_AC = $request->input('avaible_AC');
-    	}
     	
-    	$room->avaible_seats = $request->input('avaible_seats');
-    	$room->seats_type = $request->input('seats_type');
-    	$room->location_id = $request->input('location_id');
-    	$room->save();
+      $room->avaible_video_projector = $request->input('avaible_video_projector', 0);
+      $room->avaible_AC = $request->input('avaible_AC', 0);      
+      $room->avaible_seats = $request->input('avaible_seats');
+      $room->seats_type = $request->input('seats_type');
+      $room->location_id = $request->input('location_id');
+      $room->save();
 
-    	return redirect()->action('RoomController@create')->with('sucess', 'Cadastrado com sucesso!');;  
-    }
+      return redirect()->action('RoomController@create')->with('sucess', 'Cadastrado com sucesso!');;  
+  }
 
-    public function show($id)
-    {        
-    	return view('room.show', ['room' => Room::find($id)]);    
-    }
+  public function show($id)
+  {        
+   return view('room.show', ['room' => Room::find($id)]);    
+}
 
     /**
      * Show the form for editing the specified resource.

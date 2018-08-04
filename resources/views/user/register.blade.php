@@ -3,6 +3,15 @@
 @section('content')
 
 <div class="center1">
+	@if ($errors->any())
+	<div class="alert alert-danger">
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+	@endif
 	<legend>Cadastro de Usuário</legend> <br>
 
 	<form method="POST" action="{{route('register_user')}}" enctype="multipart/form-data">
@@ -35,9 +44,9 @@
 				<div class="input-group">
 					<div class="input-group-prepend">
 						<div class="input-group-text">
-							<input name="avaible_whatsapp" type="checkbox" aria-label="Checkbox for following text input">	
+							<input value="1" name="avaible_whatsapp" type="checkbox" aria-label="Checkbox for following text input">	
 						</div>
-					</div>				                 			                         						      
+					</div>				                 			                         				
 					<input type="text" class="form-control" placeholder="Possuo whatsapp" readonly>
 				</div>  
 			</div>
@@ -86,5 +95,6 @@
 
 	</form>	  
 </div>
+
 
 @endsection

@@ -39,22 +39,13 @@ class UserController extends Controller
 	}
 
 	public function register(Request $request){ 
-
 		$this->validate($request, [
 			'name' => 'required',
-			'CPF' => 'required|unique:users|max:255.teste',
+			'CPF' => 'required|unique:users|max:11',
 			'password' => 'required',
 		]);
 
-		$users = User::all(); 
-		$existe = 0;
-
-		foreach ($users as $user){
-			if ($request->input('CPF') == $user->CPF) 
-				$existe++;	
-		}
-
-		if($existe == 0 && $request->input('CPF') &&$request->input('name') 
+		if($request->input('CPF') &&$request->input('name') 
 			&& $request->input('email') && $request->input('password') ){
 			$user = new User;
 		$user->name = $request->input('name');
@@ -64,7 +55,7 @@ class UserController extends Controller
 		$user->second_register_id = $request->input('second_register_id');
 		$user->password = md5($request->input('password'));
 		$user->phone_number = $request->input('phone_number');
-		$user->avaible_whatsapp = $request->input('avaible_whatsapp');
+		$user->avaible_whatsapp = $request->input('avaible_whatsapp', 0);
 		$user->linkedin = $request->input('linkedin');
 		$user->facebook = $request->input('facebook');
 		$user->twitter = $request->input('twitter');
@@ -83,13 +74,11 @@ class UserController extends Controller
 					$user->bonds()->attach($request->input('bond'));*/
 					$user->save();
 					$existe = 0;
-					return redirect('/');
+					return redirect('/')->with('sucess', 'Cadastrado com sucesso!');
 				}else{
-					if($existe != 0)
-						return print_r('eror');
+					return redirect('/register')->with('error', 'Usuário já cadastrado!');
 				}
 			}
-
 			public function verifyCPF(){
 				$CPF = $_GET['CPF'];
 				$users = InternalInfo::where('CPF', $CPF)->get();

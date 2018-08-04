@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Bond;
 
 class BondsTableSeeder extends Seeder
 {
@@ -10,16 +11,18 @@ class BondsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-    	DB::table('bonds')->insert([
-    		'name' => 'Professores, Gestores e Funcionarios SEDUC',
-    		
-    	]);
-    	DB::table('bonds')->insert([
-    		'name' => 'Escola Total, Tempo Integral e Subvencionadas',
-    	]);
-    	DB::table('bonds')->insert([
-    		'name' => 'Publico Externo',
-    	]);
+    {   
+        $bonds = Bond::whereIn('id', [1,2,3])->get();
+        if($bonds->count() >= 3 ){return;}
+            DB::table('bonds')->insert([
+              'name' => 'Professores, Gestores e Funcionarios SEDUC',
+          ]);
+            DB::table('bonds')->insert([
+              'name' => 'Escola Total, Tempo Integral e Subvencionadas',
+          ]);
+            DB::table('bonds')->insert([
+              'name' => 'Publico Externo',
+          ]);
+        
     }
 }
