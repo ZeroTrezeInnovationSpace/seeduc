@@ -19,12 +19,12 @@
         <th scope="col" name="eventDate">#</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody >
       @foreach($activities as $activity)
       <tr>
         <th scope="row" name="period">{{ date('d', strtotime($activity->beginning_date)) }}</th>
         <td>{{$activity->name}}</td>
-        <td>{{$activity->description}}</td>
+        <td style="height: 150px; overflow-y: auto; overflow-x: hidden; display: block;">{{$activity->description}}</td>
         <td>-</td>
         <td>{{$activity->bond->name}}</td>
         @if($activity->period == 'manhã')

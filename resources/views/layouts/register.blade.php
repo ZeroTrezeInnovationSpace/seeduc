@@ -35,9 +35,9 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light" style"position: absolute;">
-        <a class="navbar-brand" href="/sise-sistema/public/">
-            <img src="https://www.afilnet.pt/img/editicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <nav class="navbar  navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="https://cdn.iconscout.com/public/images/icon/premium/png-512/registration-online-computer-internet-login-subscription-form-ecommerce-3acc50941018c860-512x512.png" width="30" height="30" class="d-inline-block align-top" width="30" height="30" class="d-inline-block align-top" alt=""> &nbsp;
             SEEDUC - Sistema de Eventos da Educação
             de Santos
         </a>
