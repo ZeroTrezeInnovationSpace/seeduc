@@ -34,7 +34,85 @@
 			var display2 = document.getElementById("EventSelectionTable");
 			display1.style.display = "none";
 			display2.style.display = "block";
-		}    
+		}  
+		function esconde() {
+			var example= document.getElementById("style");
+
+			if (example.style.display === "none") {
+				example.style.display = "block";
+
+			} else {
+				example.style.display = "none";
+
+			}
+		};
+
+		function escondeIn() {
+			var example= document.getElementById("style3");
+
+			if (example.style.display === "none") {
+				example.style.display = "block";
+
+			} else {
+				example.style.display = "none";
+
+			}
+		};
+		function escondeInternet() {
+			var example= document.getElementById("style1");
+
+			if (example.style.display === "none") {
+				example.style.display = "block";
+
+			} else {
+				example.style.display = "none";
+
+			}
+		};
+
+		function escondeSistema() {
+			var example= document.getElementById("style2");
+
+			if (example.style.display === "none") {
+				example.style.display = "block";
+
+			} else {
+				example.style.display = "none";
+
+			}
+		};
+		function funcTeacher() {
+			var example= document.getElementById("professor");
+
+			if (example.style.display === "none") {
+				example.style.display = "block";
+
+			} 
+		}
+		function funcTeacher_not() {
+			var example= document.getElementById("professor");
+
+			if (example.style.display === "block") {
+				example.style.display = "none";
+
+			} 
+		}
+		function professorEsconde() {
+			var example= document.getElementById("style5");
+
+			if (example.style.display === "none") {
+				example.style.display = "block";
+
+			} 
+		};
+		function professorDel() {
+			var example= document.getElementById("style5");
+
+			if (example.style.display === "block") {
+				example.style.display = "none";
+
+			} 
+		};  
 	</script>
 </head>
 <body>
@@ -55,4 +133,5 @@
 	</nav>
 	@yield('content')
 </body>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"aece2c08f5","applicationID":"22912202","transactionName":"ZgMBMkBYDRcCARVQC19JIBNBTQwJTA8AUAhuAQYS","queueTime":0,"applicationTime":193,"atts":"SkQCRAhCHhk=","errorBeacon":"bam.nr-data.net","agent":""}</script>
 </html>

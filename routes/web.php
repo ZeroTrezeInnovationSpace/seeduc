@@ -34,3 +34,6 @@ Route::post('/room_register', 'RoomController@store')->name('room_register');
 
 #TICKETS ROUTES
 Route::post('/ticket', 'TicketsController@generate')->name('ticket');
+
+#QUIZ ROUTES
+Route::post('/quiz', 'QuizController@store')->name('quiz');

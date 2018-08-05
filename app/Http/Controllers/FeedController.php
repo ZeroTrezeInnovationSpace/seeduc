@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Event;
+use App\Bond;
 
 class FeedController extends Controller
 {
@@ -23,7 +24,14 @@ class FeedController extends Controller
     		return view('feed.index');    
     	}*/
         if($request->session()->get('id') != null && $request->session()->get('name') != null){
-
+            /*$quiz = User::where('id', $request->session()->get('id'))->get();
+            if(is_null($quiz[0]->quiz_id) ){
+                return view('quiz.quiz', ['bonds' => Bond::all()] )
+                ->with('id', $request->session()->get('id'))
+                ->with('bond_id', $request->session()->get('bond_id'))
+                ->with('name', $request->session()->get('name'));
+            }*/
+            
             return view('feed.index', ['userActivities' => User::with('activities', 'activities.event', 
                 'activities.subscribers')
             ->where('id', $request->session()->get('id'))->get(), 'events' => Event::all()])

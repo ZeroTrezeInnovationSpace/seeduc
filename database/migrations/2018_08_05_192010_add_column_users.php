@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableActivities extends Migration
+class AddColumnUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterTableActivities extends Migration
      */
     public function up()
     {
-        Schema::table('activities', function (Blueprint $table) {
-            $table->string('name', 500)->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('quiz_id')->unsigned()->nullable();
         });
     }
 
@@ -25,6 +25,8 @@ class AlterTableActivities extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('quiz_id');
+        });
     }
 }

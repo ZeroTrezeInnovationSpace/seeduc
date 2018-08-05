@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="center1">
-  <legend>Eventos Semana da Educação</legend>
+  <h4><legend><b>Eventos Semana da Educação</b></legend></h4>
   <br>
   <br><br>
   <table class="table table-striped">

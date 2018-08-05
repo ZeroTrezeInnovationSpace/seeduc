@@ -2,10 +2,10 @@
 @section('content')
 
 <div class="center1">
-  <h4 class="display-4">Meu Painel</h4><br>
+  <h4 class="display-4"><b>Meu Painel</h4></b><br>
   <div>
     <div class="form-row">
-     <div class="col-md-6"> <button type="button" onclick="location.href='activities'" id="EventSelection" class="btn btn-success">Seleção de eventos</button> </div>
+     <div class="col-md-6"> <button type="button" onclick="location.href='activities'" id="EventSelection" class="btn btn-success">Selecione Atividades</button> </div>
      <div class="col-md-6"> <button type="button" id="MyEvents" onclick="displayView()" class="btn btn-success">Minhas Atividades</button> </div>
    </div>
    <br>    
@@ -15,8 +15,8 @@
         <tr>
           <th scope="col">Evento</th>
           <th scope="col">Descrição</th>
-          <th scope="col">Data de inicio</th>
-          <th scope="col">Data de termino</th>
+          <th scope="col">Data de início</th>
+          <th scope="col">Data de término</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
@@ -104,8 +104,11 @@
         @endforeach
         @endforeach 
       </tbody>
-    </table>   
-    
+    </table> 
+      <br>
+    <button type="button" onclick="location.href='feed'"; class="btn btn-danger" style="width: 150px;">Voltar Painel</button>
+
+
   </div>
 </div>  
 </div>
