@@ -16,7 +16,7 @@
 	.center1 {
 		text-align: center;
 		margin: auto;
-		width: 70%;
+		width: 90%;
 		background: ##fff;
 		padding: 30px;
 		box-shadow: 1px -1px 69px 0px rgba(27, 126, 27, 0.51);
