@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Subscription;
+use App\Activity;
+use DB;
 
 class SubscribeController extends Controller
 {
@@ -44,18 +46,22 @@ class SubscribeController extends Controller
     {
         #Chamando função para verificar se usuário já está inscrito
         $inscrito = $this->verifySubscriber($request->input('user_id'), $request->input('activity_id'));
+        
+        if($inscrito == 0){   
+            $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); if($date_time == 0){    
+                $subscription = new Subscription;
 
-        if($inscrito == 0){       
-            $subscription = new Subscription;
-
-            $subscription->user_id = $request->input('user_id');
-            $subscription->activity_id = $request->input('activity_id');
+                $subscription->user_id = $request->input('user_id');
+                $subscription->activity_id = $request->input('activity_id');
     	//$subscription->certificate = $request->input('certificate');
 
-            $subscription->save();
-            return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
+                $subscription->save();
+                return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
+            }else{
+                return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
+            }
         }else{
-            return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');;
+            return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
         }
     }
 
@@ -133,4 +139,27 @@ class SubscribeController extends Controller
         return $inscrito;
     }
 
-}
+    public function verifyDateTimeActivity($user_id, $activity_id){
+        $activity = Activity::where('id', $activity_id)->get();
+        /*print($activity);
+        foreach ($activity as $key ) {
+            print($key);
+        }
+
+        exit();*/
+        $verificar = DB::table('activities')
+        ->join('subscriptions', 'activities.id', '=', 'subscriptions.activity_id')
+        ->where('subscriptions.user_id', $user_id)
+        ->select('activities.beginning_date', 'activities.period')
+        ->get();
+
+        $count = 0;
+        foreach ($verificar as $verifica) {
+            if($verifica->period == $activity[0]->period && 
+                $verifica->beginning_date == $activity[0]->beginning_date)
+                $count++; 
+            }
+            
+            return $count;
+        }
+    }

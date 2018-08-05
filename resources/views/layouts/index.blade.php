@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Paine Usuáro - SEEDUC</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -41,7 +42,7 @@
 		<a class="navbar-brand" href="#">
 			<img src="https://cdn.iconscout.com/public/images/icon/premium/png-512/registration-online-computer-internet-login-subscription-form-ecommerce-3acc50941018c860-512x512.png" width="30" height="30" class="d-inline-block align-top" width="30" height="30" class="d-inline-block align-top" alt="">
 			SEEDUC - Sistema de Eventos da Educação
-            de Santos
+			de Santos
 		</a>
 		<a class="navbar-brand" href="#">
 			<img src="https://openclipart.org/download/247319/abstract-user-flat-3.svg" width="30" height="30" class="d-inline-block align-top-left" alt="" style="position: absolute; left: 800px;">
