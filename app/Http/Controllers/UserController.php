@@ -67,9 +67,9 @@ class UserController extends Controller
 		$user->state = $request->input('state');
 		$user->district = $request->input('district');
 		if(is_null($request->input('register_id')) ){
-			$user->bond_id = 1;
-		}else{
 			$user->bond_id = 3;
+		}else{
+			$user->bond_id = 1;
 		}
 
 					#$user->user_picture = $request->input('user_picture'); VERIFICAR COMO PEGAR O CAMINHO
