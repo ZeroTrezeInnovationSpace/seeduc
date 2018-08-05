@@ -18,6 +18,14 @@ class Activity extends Model
 		return $this->belongsTo('App\Event');
 	}
 
+	public function location(){
+		return $this->belongsTo('App\Location');
+	}
+
+	public function bond(){
+		return $this->belongsTo('App\Bond');
+	}
+
 	public function users(){
 		return $this->belongsToMany('App\User', 'subscriptions', 'activity_id', 'user_id');
 	}

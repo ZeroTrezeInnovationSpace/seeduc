@@ -38,7 +38,7 @@
 		<br>
 		<div class="form-row">
 			<div class="col-md-6">
-				<input type="text" class="form-control" name="phone_number"  onkeypress="mascara(this, '## #####-####')"  placeholder="Número do celular" required> <br>
+				<input type="text" id="telefone" class="form-control" name="phone_number" placeholder="Número do celular" required> <br>
 			</div>
 			<div class="col-md-6">    
 				<div class="input-group">

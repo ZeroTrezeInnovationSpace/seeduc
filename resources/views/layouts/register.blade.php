@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/concore-sdk-js@latest/dist/concore.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <title></title>
     <style type="text/css">
     .center1 {
@@ -35,7 +37,8 @@
     <nav class="navbar navbar-light bg-light" style"position: absolute;">
         <a class="navbar-brand" href="/sise-sistema/public/">
             <img src="https://www.afilnet.pt/img/editicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            SEEDUC
+            SEEDUC - Sistema de Eventos da Educação
+            de Santos
         </a>
     </nav>
     
@@ -188,6 +191,20 @@ $(document).ready(function(){
         $('#register_id').attr('disabled', true);
         $('#second_register_id').attr('disabled', true);
     }
+});
+   jQuery("#telefone")
+   .mask("(99) 9999-9999?9")
+   .focusout(function (event) {  
+    var target, phone, element;  
+    target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
+    phone = target.value.replace(/\D/g, '');
+    element = $(target);  
+    element.unmask();  
+    if(phone.length > 10) {  
+        element.mask("(99) 99999-999?9");  
+    } else {  
+        element.mask("(99) 9999-9999?9");  
+    }  
 });
 });
 

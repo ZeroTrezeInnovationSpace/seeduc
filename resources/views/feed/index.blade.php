@@ -38,8 +38,11 @@
    <table class="table table-bordered">
     <thead>
       <tr>
-        <th scope="col">Evento</th>
-        <th scope="col">Atividade</th>
+        <th scope="col">Data</th>
+        <th scope="col">Tema</th>
+        <th scope="col">Ementa</th>
+        <th scope="col">Período</th>
+        <th scope="col">Local</th>
         <th scope="col">Check-in</th>
         <th scope="col">Nos de sua opinião</th>
         <th scope="col">Certificação</th>
@@ -51,49 +54,59 @@
       @foreach($userActivities as $userActivity)
       <tr>
         @foreach($userActivity->activities as $activity)
-        <th scope="row">{{$activity->event->name}}</th>
+        <th scope="row" name="period">{{ date('d', strtotime($activity->beginning_date)) }}</th>
         <td>{{$activity->name}}</td>
-        @foreach($activity->subscribers as $subscriber)
-        @if($subscriber->check_in == '0' && $subscriber->user_id == $id)
-        <td><p style="color: red;"> Não Realizado </p></td>
-        <td><button type="button" id="eventFeedback"  class="btn btn-success" disabled>Feedback</button></td>
-        <td><button type="button" id="eventCertification" class="btn btn-success" disabled>Download</button></td>
-        @elseif($subscriber->check_in == '1' && $subscriber->user_id == $id)
-        <td><p style="color: green;"> Verificado </p></td>
-        <td><button type="button" id="eventFeedback"  class="btn btn-success">Feedback</button></td>
-        <td><button type="button" id="eventCertification" class="btn btn-success">Download</button></td>
+        <td>{{$activity->description}}</td>
+        @if($activity->period == 'manhã')
+        <td>9h às 11h</td>
+        @elseif($activity->period == 'tarde')
+        <td>14h às 16h</td>
+        @elseif($activity->period == 'noite')
+        <td>{{$activity->period}}</td>
         @endif
+        <td>{{$activity->location->name}} - {{$activity->location->full_adress}} 
+          {{$activity->location->adress_number}}</td>
+          @foreach($activity->subscribers as $subscriber)
+          @if($subscriber->check_in == '0' && $subscriber->user_id == $id)
+          <td><p style="color: red;"> Não Realizado </p></td>
+          <td><button type="button" id="eventFeedback"  class="btn btn-success" disabled>Feedback</button></td>
+          <td><button type="button" id="eventCertification" class="btn btn-success" disabled>Download</button></td>
+          @elseif($subscriber->check_in == '1' && $subscriber->user_id == $id)
+          <td><p style="color: green;"> Verificado </p></td>
+          <td><button type="button" id="eventFeedback"  class="btn btn-success">Feedback</button></td>
+          <td><button type="button" id="eventCertification" class="btn btn-success">Download</button></td>
+          @endif
+          @endforeach
+          @if($subscriber->check_in == '0')
+          <td>
+            <form method="POST" action="ticket">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
+              <input type="hidden" name="name" value="<?php echo($name)?>">
+              <input type="hidden" name="id" value="<?php echo($id)?>">
+              <button type="submit" class="btn btn-primary">Gerar Inscrição</button>
+            </form>
+          </td>
+          <td>
+            <form method="POST" action="unsubscribe">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+              <input type="hidden" name="subscription_id" value="<?php echo($subscriber->id)?>">
+              <input type="hidden" name="user_id" value="<?php echo($id)?>">
+              <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
+              <button type="submit" class="btn btn-danger" style="width: 150px;">Cancelar Inscrição</button>
+            </form>
+          </td>
+          @else
+          <td><button disabled type="button" class="btn btn-primary">Gerar Inscrição</button></td>
+          <td><button disabled type="button" class="btn btn-danger" style="width: 150px;">Cancelar Inscrição</button></td>
+          @endif
+        </tr>
         @endforeach
-        @if($subscriber->check_in == '0')
-        <td>
-          <form method="POST" action="ticket">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
-            <input type="hidden" name="name" value="<?php echo($name)?>">
-            <input type="hidden" name="id" value="<?php echo($id)?>">
-            <button type="submit" class="btn btn-primary">Gerar Inscrição</button>
-          </form>
-        </td>
-        <td>
-          <form method="POST" action="unsubscribe">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
-            <input type="hidden" name="subscription_id" value="<?php echo($subscriber->id)?>">
-            <input type="hidden" name="user_id" value="<?php echo($id)?>">
-            <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
-            <button type="submit" class="btn btn-danger" style="width: 150px;">Cancelar Inscrição</button>
-          </form>
-        </td>
-        @else
-        <td><button disabled type="button" class="btn btn-primary">Gerar Inscrição</button></td>
-        <td><button disabled type="button" class="btn btn-danger" style="width: 150px;">Cancelar Inscrição</button></td>
-        @endif
-      </tr>
-      @endforeach
-      @endforeach 
-    </tbody>
-  </table>   
-  <p class="lead">Quantidade de horas participadas: xxx horas </p>
-</div>
+        @endforeach 
+      </tbody>
+    </table>   
+    
+  </div>
 </div>  
 </div>
 @endsection
