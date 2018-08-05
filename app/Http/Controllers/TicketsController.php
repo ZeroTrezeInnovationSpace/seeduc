@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tickets;
+use PDF;
 
 class TicketsController extends Controller
 {
@@ -21,6 +22,17 @@ class TicketsController extends Controller
     	else{
     		return view('feed.index');    
     	}
+
+    }
+
+    public function generate(Request $request){
+        if($request->input('bond_id') == 1){
+            $pdf = PDF::loadView('ticket.generate_intern');
+        }elseif($request->input('bond_id') == 3){
+            $pdf = PDF::loadView('ticket.generate_extern');
+        }
+        
+        return $pdf->download("inscrição.pdf");
 
     }
 
@@ -90,13 +102,13 @@ class TicketsController extends Controller
 
         $tickets = Tickets::find($id);
         $tickets->name = $request->input('name');
-    	$tickets->creation_date = $request->input('creation_date');
-    	$tickets->creation_hour = $request->input('creation_hour');
-    	$tickets->price = $request->input('price');
-    	$tickets->descripition = $request->input('descripition');
-    	$tickets->publics_id = $request->input('publics_id');
-    	$tickets->batches_id = $request->input('batches_id');
-    	$tickets->events_id = $request->input('events_id');
+        $tickets->creation_date = $request->input('creation_date');
+        $tickets->creation_hour = $request->input('creation_hour');
+        $tickets->price = $request->input('price');
+        $tickets->descripition = $request->input('descripition');
+        $tickets->publics_id = $request->input('publics_id');
+        $tickets->batches_id = $request->input('batches_id');
+        $tickets->events_id = $request->input('events_id');
 
         $tickets->save();
         return redirect()->action('TicketsController@index');

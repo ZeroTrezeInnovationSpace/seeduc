@@ -28,6 +28,7 @@ class FeedController extends Controller
                 'activities.subscribers')
             ->where('id', $request->session()->get('id'))->get(), 'events' => Event::all()])
             ->with('id', $request->session()->get('id'))
+            ->with('bond_id', $request->session()->get('bond_id'))
             ->with('name', $request->session()->get('name'));
 
         }else{

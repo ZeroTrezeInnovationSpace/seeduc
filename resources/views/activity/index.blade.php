@@ -22,7 +22,7 @@
         <th scope="row" name="period">{{ date('d/m/Y', strtotime($activity->beginning_date)) }}</th>
         <td>{{$activity->event->name}}</td>
         <td>{{$activity->name}}</td>
-        <td>{{$activity->description}}</td>
+        <td> - </td>
         <td>{{$activity->maximum_capacity}}</td>
         <td>
          <form method="POST" action="subscribe">

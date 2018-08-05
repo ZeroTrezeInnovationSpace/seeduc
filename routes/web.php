@@ -31,3 +31,6 @@ Route::post('/location_register', 'LocationController@store')->name('location_re
 #ROOM ROUTES
 Route::get('/room', 'RoomController@create')->name('room');
 Route::post('/room_register', 'RoomController@store')->name('room_register');
+
+#TICKETS ROUTES
+Route::post('/ticket', 'TicketsController@generate')->name('ticket');

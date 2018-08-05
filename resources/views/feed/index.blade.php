@@ -66,7 +66,11 @@
         @endforeach
         @if($subscriber->check_in == '0')
         <td>
-          <form>
+          <form method="POST" action="ticket">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
+            <input type="hidden" name="name" value="<?php echo($name)?>">
+            <input type="hidden" name="id" value="<?php echo($id)?>">
             <button type="submit" class="btn btn-primary">Gerar Inscrição</button>
           </form>
         </td>

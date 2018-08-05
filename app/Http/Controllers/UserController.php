@@ -22,6 +22,7 @@ class UserController extends Controller
 			foreach ($users as $user) {
 				$request->session()->put('name', $user->name);
 				$request->session()->put('id', $user->id);
+				$request->session()->put('bond_id', $user->bond_id);
 				return redirect()->action('FeedController@index'); 
 			}
 		}

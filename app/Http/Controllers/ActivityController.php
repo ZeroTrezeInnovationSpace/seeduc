@@ -27,7 +27,7 @@ class ActivityController extends Controller
     		return view('feed.index');    
     	}*/
 
-       return view('activity.index', ['activities' => Activity::with('event', 'subscribers')->get(),
+       return view('activity.index', ['activities' => Activity::with('event', 'subscribers')->limit(10)->get(),
            'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
        ->with('id', $request->session()->get('id'))
        ->with('name', $request->session()->get('name'));
