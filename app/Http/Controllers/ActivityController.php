@@ -62,7 +62,7 @@ class ActivityController extends Controller
         $activity->maximum_capacity = $request->input('maximum_capacity');
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
-        $activity->public_id = $request->input('public_id');
+        $activity->bond_id = $request->input('public_id');
     	//$activity->program_id = $request->input('program_id');
     	
     	$activity->save();
