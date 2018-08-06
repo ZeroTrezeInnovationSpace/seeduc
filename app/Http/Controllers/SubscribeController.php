@@ -48,9 +48,11 @@ class SubscribeController extends Controller
         $inscrito = $this->verifySubscriber($request->input('user_id'), $request->input('activity_id'));
         $max = $this->verifyCapacity($request->input('activity_id'));
 
-        if($max == 0){
-            if($inscrito == 0){   
-                $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); if($date_time == 0){    
+        
+        if($inscrito == 0){   
+            if($max == 0){
+                $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); 
+                if($date_time == 0){    
                     $subscription = new Subscription;
 
                     $subscription->user_id = $request->input('user_id');
@@ -63,17 +65,17 @@ class SubscribeController extends Controller
                     return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
                 }
             }else{
-                return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
-            }
-        }else{
-           return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
-        }
+               return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
+           }
+       }else{
+        return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
     }
+}
 
-    public function show($id)
-    {        
-    	return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
-    }
+public function show($id)
+{        
+ return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
+}
 
     /**
      * Show the form for editing the specified resource.
