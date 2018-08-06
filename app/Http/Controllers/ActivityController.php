@@ -82,7 +82,7 @@ class ActivityController extends Controller
 
     public function show()
     {        
-        return view('activity.edit', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
+        return view('activity.list', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
             ->orderBy('beginning_date', 'asc')
             ->paginate(10),
             'subscriptions' => Subscription::all()]);
