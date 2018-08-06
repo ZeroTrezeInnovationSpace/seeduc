@@ -44,19 +44,38 @@
     </nav>
     
     <script type="text/javascript" >
+        var j = 0;
         function duplicarCampos(){
-            var clone = document.getElementById('EventSpeakers').cloneNode(true);
+            j++;
+            var a = j-1; 
+            var clone = document.getElementById('EventSpeakers'+a).cloneNode(true);
+            clone.id = 'EventSpeakers'+j;
+            clone.name = "speakers["+j+"]";
             var destino = document.getElementById('destino');
+            destino.appendChild(clone);
+            var camposClonados = clone.getElementsByTagName('input');
+            for(i=0; i<camposClonados.length;i++){
+                  camposClonados[i].value = '1';
+             }
+      }
+      function removerCampos(id){
+        var node1 = document.getElementById('destino');
+        node1.removeChild(node1.childNodes[0]);
+    }
+       function duplicarCamposPublico(){
+            var clone = document.getElementById('EventBonds').cloneNode(true);
+            var destino = document.getElementById('destiny');
             destino.appendChild (clone);
             var camposClonados = clone.getElementsByTagName('input');
             for(i=0; i<camposClonados.length;i++){
               camposClonados[i].value = '';
           }
       }
-      function removerCampos(id){
-        var node1 = document.getElementById('destino');
+      function removerCamposPublico(id){
+        var node1 = document.getElementById('destiny');
         node1.removeChild(node1.childNodes[0]);
     }
+
 
     function verificate(){
 

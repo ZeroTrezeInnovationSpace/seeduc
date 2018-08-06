@@ -95,9 +95,15 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function manage($id)
+    public function manage(Request $request)
     {
-    	return view('activity.manage', ['activity' => Activity::with('event', 'location', 'public', 'program')->find($id), 'batches' => Batch::where('activity_id', $id)->orderBy('created_at', 'desc')->get(), 'activityId' => $id]);
+        $id = $request->input('activity_id');
+    	return view('activity.manage', ['activity' => Activity::with('event', 'location', 'bonds')->find($id), 'events' => Event::all(), 'locations' => Location::all(), 
+            'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all(), 
+            'rooms' => Room::select("rooms.*"
+                ,DB::raw("CONCAT(locations.name,' ',rooms.name) as full_name"))
+            ->join("locations", "rooms.location_id", "=", "locations.id")
+            ->get()]);
     }
 
     /**
@@ -109,6 +115,11 @@ class ActivityController extends Controller
      */
     public function update(Request $request)
     {
+
+        echo '<br>';
+        print_r($request->speakers);
+        print_r($request->speakers[0]);
+        exit;
         /*$this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users,email,'. $id .'|max:255',

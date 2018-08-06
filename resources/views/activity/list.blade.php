@@ -37,7 +37,9 @@
     <td>{{$activity->location->name}} - {{$activity->location->full_adress}} 
       {{$activity->location->adress_number}}</td>
       <td>
-         <form method="POST" action="edit">
+         <form method="GET" action="{{ route('activity_manage') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+            <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
             <button type="submit" class="btn btn" style="width: 150px;">Editar</button>
         </form>
     </td>

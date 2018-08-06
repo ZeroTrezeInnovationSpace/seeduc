@@ -15,6 +15,8 @@ Route::get('/activities_register', 'ActivityController@create')->name('activitie
 Route::post('/activities_save', 'ActivityController@store')->name('activities_save');
 Route::get('/list', 'ActivityController@show')->name('list');
 Route::post('/delete_activity', 'ActivityController@destroy')->name('delete_activity');
+Route::get('/activity_manage/', 'ActivityController@manage')->name('activity_manage');
+Route::post('/activity_update', 'ActivityController@update')->name('activity_update');
 
 #SUBSCRIBE ROUTES
 Route::post('/subscribe', 'SubscribeController@store')->name('subscribe');

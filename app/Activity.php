@@ -26,8 +26,8 @@ class Activity extends Model
 		return $this->belongsTo('App\Room');
 	}
 
-	public function bond(){
-		return $this->belongsTo('App\Bond');
+	public function bonds(){
+		return $this->belongsToMany('App\Bond', 'activity_bonds', 'activity_id', 'bond_id');
 	}
 
 	public function users(){
