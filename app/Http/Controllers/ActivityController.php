@@ -43,7 +43,7 @@ class ActivityController extends Controller
     public function create()
     {
         return view('activity.create', ['events' => Event::all(), 'locations' => Location::all(), 
-            'speakers' => Speaker::all(), 'bonds' => Bond::all()]);
+            'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all()]);
     }
 
     /**
