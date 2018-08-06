@@ -15,11 +15,19 @@
 	</div>
 	@endif
 	<legend>Cadastro de Usuário</legend> <br>
-
 	<form method="POST" action="{{route('register_user')}}" enctype="multipart/form-data">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}"> 		
 		<img class="photo" style="width: 120px; height: 120px;"><br><br>
 		<input  type="file" name="image" id="imagem" onchange="previewImagem()"><br><br>
+		<div class="form-row">
+			<select name="bond_id" class="form-control" class="col-md-11" required="">
+				<option>Escolha seu segmento</option>
+				@foreach($bonds as $bond)
+				<option value="<?php echo($bond->id)?>">{{$bond->name}}</option>
+				@endforeach
+			</select>
+		</div>
+		<br>
 		<div class="form-row">
 			<div class="col-md-6">    
 				<input type="text" class="form-control" name="name"  placeholder="Nome Completo" required>

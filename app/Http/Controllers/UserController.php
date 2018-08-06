@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\InternalInfo;
 use DateTime;
+use App\Bond;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -36,7 +37,7 @@ class UserController extends Controller
 	}
 
 	public function registerIndex(){
-		return view('user.register');
+		return view('user.register', ['bonds' => Bond::all()]);
 	}
 
 	public function register(Request $request){ 
@@ -67,11 +68,7 @@ class UserController extends Controller
 		$user->city = $request->input('city');
 		$user->state = $request->input('state');
 		$user->district = $request->input('district');
-		if(is_null($request->input('register_id')) ){
-			$user->bond_id = 3;
-		}else{
-			$user->bond_id = 1;
-		}
+		$user->bond_id = $request->input('bond_id'); 
 
 					#$user->user_picture = $request->input('user_picture'); VERIFICAR COMO PEGAR O CAMINHO
 					#PERMISSÕES

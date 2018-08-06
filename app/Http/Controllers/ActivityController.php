@@ -29,14 +29,14 @@ class ActivityController extends Controller
     		return view('feed.index');    
     	}*/
 
-       return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
-        ->whereIn('bond_id', [$request->session()->get('bond_id'), 3])
+     return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
+        ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->paginate(10),
         'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
-       ->with('id', $request->session()->get('id'))
-       ->with('bond_id', $request->session()->get('bond_id'))
-       ->with('name', $request->session()->get('name'));
-   }
+     ->with('id', $request->session()->get('id'))
+     ->with('bond_id', $request->session()->get('bond_id'))
+     ->with('name', $request->session()->get('name'));
+ }
 
     /**
      * Show the form for creating a new resource.
