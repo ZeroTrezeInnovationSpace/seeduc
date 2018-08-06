@@ -80,6 +80,7 @@ class ActivityController extends Controller
         return redirect()->action('ActivityController@create')->with('sucess', 'Cadastrado com sucesso!');;  
     }
 
+    #LISTAR PARA ADMINISTRADOR OS EVENTOS
     public function show()
     {        
         return view('activity.list', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
