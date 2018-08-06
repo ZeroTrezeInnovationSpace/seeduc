@@ -29,15 +29,15 @@ class ActivityController extends Controller
     		return view('feed.index');    
     	}*/
 
-     return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
+       return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
         ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
         'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
-     ->with('id', $request->session()->get('id'))
-     ->with('bond_id', $request->session()->get('bond_id'))
-     ->with('name', $request->session()->get('name'));
- }
+       ->with('id', $request->session()->get('id'))
+       ->with('bond_id', $request->session()->get('bond_id'))
+       ->with('name', $request->session()->get('name'));
+   }
 
     /**
      * Show the form for creating a new resource.
@@ -104,7 +104,7 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         /*$this->validate($request, [
             'name' => 'required',
@@ -113,10 +113,15 @@ class ActivityController extends Controller
 
         $activity = Activity::find($id);
         $activity->name = $request->input('name');
+        $activity->description = $request->input('description');
+        $activity->beginning_date = $request->input('beginning_date');
+        $activity->period = $request->input('period');
+        $activity->minimum_quorum = $request->input('minimum_quorum');
+        $activity->maximum_capacity = $request->input('maximum_capacity');
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
-        $activity->public_id = $request->input('public_id');
-        $activity->program_id = $request->input('program_id');
+        $activity->bond_id = $request->input('public_id');
+        $activity->room_id = $request->input('room');
 
         $activity->save();
         return redirect()->action('ActivityController@index');
