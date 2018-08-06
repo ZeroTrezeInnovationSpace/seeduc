@@ -16,7 +16,7 @@
             </div>
             <br>
             <div class="form-row">
-             <div class="col-md-6">
+               <div class="col-md-6">
                 <label for="EventSelection" class="lead">Selecione o periodo:</label> 
                 <select class="form-control form-control-md" name="period" id="EventPeriod"  required>
                     <option value=""></option>
@@ -51,10 +51,11 @@
             </div>
             <div class="col-md-6">
                 <label for="RoomSelection" class="lead">Selecione a sala:</label>  
-                <select class="form-control form-control-md" name="EventPeriod" id="EventPeriod" required>
-                    <option value="exemploRoom1">Room1</option>
-                    <option value="exemploRoom2">Room2</option>
-                    <option value="exemploRoom3">Room3</option>
+                <select class="form-control form-control-md" name="room" id="EventPeriod" required>
+
+                    @foreach($rooms as $room)
+                    <option value="<?php echo($room->id) ?>">{{$room->full_name}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

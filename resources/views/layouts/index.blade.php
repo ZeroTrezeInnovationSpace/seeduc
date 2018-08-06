@@ -122,10 +122,11 @@
 			SEEDUC - Sistema de Eventos da Educação
 			de Santos
 		</a>
-		<a class="navbar-brand" href="#">
-			<img src="https://openclipart.org/download/247319/abstract-user-flat-3.svg" width="30" height="30" class="d-inline-block align-top-left" alt="" style="position: absolute; left: 800px;">
-			<font style="position: static; left: 830px;">{{$name}}</font>
-		</a>
+
+		<img src="https://openclipart.org/download/247319/abstract-user-flat-3.svg" width="30" height="30" class="d-inline-block align-top-left" style="position: absolute; left: 850px;">
+		<font style="position: absolute; left: 890px; color: white;">{{$name}}</font>
+
+		
 		<form action="log_out" method="POST">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<button type="submit" class="btn btn-outline-light">Sair</button>

@@ -9,6 +9,8 @@ use App\Location;
 use App\Speaker;
 use App\Subscription;
 use App\Bond;
+use App\Room;
+use DB;
 
 class ActivityController extends Controller
 {
@@ -30,8 +32,9 @@ class ActivityController extends Controller
        return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
         ->whereIn('bond_id', [$request->session()->get('bond_id'), 3])
         ->paginate(10),
-           'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
+        'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
        ->with('id', $request->session()->get('id'))
+       ->with('bond_id', $request->session()->get('bond_id'))
        ->with('name', $request->session()->get('name'));
    }
 
@@ -42,8 +45,13 @@ class ActivityController extends Controller
      */
     public function create()
     {
+
         return view('activity.create', ['events' => Event::all(), 'locations' => Location::all(), 
-            'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all()]);
+            'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all(), 
+            'rooms' => Room::select("rooms.*"
+                ,DB::raw("CONCAT(locations.name,' ',rooms.name) as full_name"))
+            ->join("locations", "rooms.location_id", "=", "locations.id")
+            ->get()]);
     }
 
     /**
@@ -65,10 +73,11 @@ class ActivityController extends Controller
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
         $activity->bond_id = $request->input('public_id');
+        $activity->room_id = $request->input('room');
     	//$activity->program_id = $request->input('program_id');
-    	
-    	$activity->save();
-    	return redirect()->action('ActivityController@create')->with('sucess', 'Cadastrado com sucesso!');;  
+
+        $activity->save();
+        return redirect()->action('ActivityController@create')->with('sucess', 'Cadastrado com sucesso!');;  
     }
 
     public function show($id)

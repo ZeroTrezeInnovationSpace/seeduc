@@ -41,6 +41,7 @@
            <form method="POST" action="subscribe">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
             <input type="hidden" name="user_id" value="<?php echo($id)?>">
+            <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
             <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
             <button type="submit" class="btn btn-success" style="width: 150px;">Inscrever-se</button>
           </form>
