@@ -31,4 +31,8 @@
 </div>
 @endif
 
+@if(session()->has('success')) 
+    <script type="text/javascript">alert("{{session()->get('success')}}");</script> 
+@endif
+
 @endsection
