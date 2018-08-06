@@ -26,8 +26,7 @@ class FeedController extends Controller
     	}*/
         if($request->session()->get('id') != null && $request->session()->get('name') != null){
             $quizes = Quiz::where('user_id', $request->session()->get('id'))->get();
-
-            if(!isset($quizes->id) ){
+            if(!isset($quizes[0]) ){
                 return view('quiz.quiz', ['bonds' => Bond::all()] )
                 ->with('id', $request->session()->get('id'))
                 ->with('bond_id', $request->session()->get('bond_id'))

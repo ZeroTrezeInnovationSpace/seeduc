@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeignKeyQuizzesUserId extends Migration
+class AlterTableQuizzesColumns extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddForeignKeyQuizzesUserId extends Migration
     public function up()
     {
         Schema::table('quizzes', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('professor_work_at')->nullable()->change();
+            $table->string('city_professor_work_at')->nullable()->change();
         });
     }
 
@@ -25,8 +26,6 @@ class AddForeignKeyQuizzesUserId extends Migration
      */
     public function down()
     {
-        Schema::table('quizzes', function (Blueprint $table) {
-            $table->dropForeign('quizzes_user_id_foreign');
-        });
+        //
     }
 }

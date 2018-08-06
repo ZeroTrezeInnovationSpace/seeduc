@@ -1,8 +1,10 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Quiz;
 
 class QuizController extends Controller
 {
@@ -14,10 +16,8 @@ class QuizController extends Controller
 
 		$quiz->bond_id = $request->input('bond_id');
 		$quiz->need_libras_interpreter = $request->input('need_libras_interpreter');
-		$quiz->beginning_date = $request->input('beginning_date');
 		$quiz->know_technology = $request->input('know_technology');
 		$quiz->used_to_sites = $request->input('used_to_sites');
-		$quiz->maximum_capacity = $request->input('maximum_capacity');
 		$quiz->adept_qr_code = $request->input('adept_qr_code');
 		$quiz->smartphone = $request->input('smartphone');
 		$quiz->kind_professor = $request->input('teacher');
@@ -31,7 +31,7 @@ class QuizController extends Controller
 		}else{
 			$quiz->professor = 0; 
 		}
-		
+
 		$quiz->user_id = $id;
 
 		$quiz->save();
