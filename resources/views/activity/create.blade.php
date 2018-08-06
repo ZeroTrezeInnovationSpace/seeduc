@@ -71,7 +71,7 @@
         <div class="form-row">
             <div class="col-md-4">
                 <label for="RoomSelection" class="lead">Palestrantes:</label>  
-                <select class="form-control form-control-md" name="speaker_id" style="margin-bottom: 10px" id="EventSpeakers" required>
+                <select class="form-control form-control-md" name="speaker_id" style="margin-bottom: 10px" id="EventSpeakers">
                     <option value=""></option>
                     @foreach($speakers as $speaker)
                     <option value="<?php echo($speaker->id) ?>">{{$speaker->name}}</option>
