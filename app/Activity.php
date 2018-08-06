@@ -22,6 +22,10 @@ class Activity extends Model
 		return $this->belongsTo('App\Location');
 	}
 
+	public function room(){
+		return $this->belongsTo('App\Room');
+	}
+
 	public function bond(){
 		return $this->belongsTo('App\Bond');
 	}
