@@ -18,16 +18,22 @@ class UserController extends Controller
 	public function logIn(Request $request){ 
 		$password = md5($request->password);
 		$users = User::where('CPF', $request->CPF)->where('password', $password)->get();
-		
-		if($users){
-			foreach ($users as $user) {
-				$request->session()->put('name', $user->name);
-				$request->session()->put('id', $user->id);
-				$request->session()->put('bond_id', $user->bond_id);
-				return redirect()->action('FeedController@index'); 
+	    $forgotPassword = $this->forgotPassword($request->CPF);
+	    //print_r($forgotPassword);
+	    //exit;
+	    if(!isset($forgotPassword)){
+			if($users){
+				foreach ($users as $user) {
+					$request->session()->put('name', $user->name);
+					$request->session()->put('id', $user->id);
+					$request->session()->put('bond_id', $user->bond_id);
+					return redirect()->action('FeedController@index'); 
+				}
 			}
+			return view('auth.login', ['error' => 'Usuário ou/e Senha Inválido(s)!']);
+		}else{
+			return view('auth.forgotPassword',['user' => $forgotPassword]);
 		}
-		return view('auth.login', ['error' => 'Usuário ou/e Senha Inválido(s)!']);
 	}
 
 	public function logOut(Request $request){ 
@@ -96,7 +102,30 @@ class UserController extends Controller
 				$users = User::where('id', $id)->get();
 				return view('user.events', ['users' => $users]);
 			}
+		
+
+			public function forgotPassword($cpf){
+				//Se o usuário possuir a flag de atualização de senha, 
+				//redirecionar para tela de inserção de nova senha
+				$users = User::where('CPF', $cpf)->where('update_password', '1')->get();
+				//redirect('/register')->with('error', 'Usuário já cadastrado!');
+				if(isset($users[0]) && !empty($users[0])){
+					return $users[0];
+				}
+			}
+
+			public function newPassword(Request $request){
+				$user = User::findOrFail($request->id);
+		        $user->password = md5($request->input('password'));
+		        $user->update_password = 0;
+		        $user->save();
+		        return redirect('/')->with('success', 'Senha alterada com sucesso!');
+			}
 		}
+
+
+
+
 
 
 
