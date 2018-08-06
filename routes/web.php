@@ -7,6 +7,7 @@ Route::post('/log_out', 'UserController@logOut')->name('log_out');
 Route::get('/register', 'UserController@registerIndex')->name('register');
 Route::post('/register_user', 'UserController@register')->name('register_user');
 Route::get('/verifyCPF', 'UserController@verifyCPF')->name('verifyCPF');
+Route::post('/new_password', 'UserController@newPassword')->name('new_password');
 
 #ACTIVITY ROUTES
 Route::get('/activities', 'ActivityController@index')->name('activities');
