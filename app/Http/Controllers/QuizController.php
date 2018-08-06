@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class QuizController extends Controller
 {
 	public function store(Request $request)
-	{/*
+	{
 		$id =  $request->session()->get('id');
 		
 		$quiz = new Quiz;
@@ -31,13 +31,11 @@ class QuizController extends Controller
 		}else{
 			$quiz->professor = 0; 
 		}
+		
+		$quiz->user_id = $id;
 
 		$quiz->save();
 
-		$user = User::find($id);
-		$user->quiz_id = $quiz_id;
-		$activity->save();
-*/
 		return redirect()->action('FeedController@index'); 
 
 	}
