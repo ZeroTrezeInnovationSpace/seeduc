@@ -37,15 +37,17 @@
     <td>{{$activity->location->name}} - {{$activity->location->full_adress}} 
       {{$activity->location->adress_number}}</td>
       <td>
-       <form method="POST" action="edit">
-        <button type="submit" class="btn btn" style="width: 150px;">Editar</button>
-    </form>
-</td>
-<td>
-    <form method="POST" action="delete">
-        <button type="submit" class="btn btn-danger" style="width: 150px;">Excluir</button>
-    </form>
-</td>
+         <form method="POST" action="edit">
+            <button type="submit" class="btn btn" style="width: 150px;">Editar</button>
+        </form>
+    </td>
+    <td>
+        <form method="POST" action="{{ route('delete_activity') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+            <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
+            <button type="submit" class="btn btn-danger" style="width: 150px;">Excluir</button>
+        </form>
+    </td>
 </tr>
 @endforeach        
 </tbody>

@@ -29,15 +29,15 @@ class ActivityController extends Controller
     		return view('feed.index');    
     	}*/
 
-       return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
+     return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
         ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
         'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
-       ->with('id', $request->session()->get('id'))
-       ->with('bond_id', $request->session()->get('bond_id'))
-       ->with('name', $request->session()->get('name'));
-   }
+     ->with('id', $request->session()->get('id'))
+     ->with('bond_id', $request->session()->get('bond_id'))
+     ->with('name', $request->session()->get('name'));
+ }
 
     /**
      * Show the form for creating a new resource.
@@ -136,12 +136,14 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-    	$activity = Activity::findOrFail($id);
-    	$activity->delete();
+        $id = $request->input('activity_id');
+        $activity = Activity::findOrFail($id);
+        $activity->delete();
 
-    	return redirect()->route('activity.index')->with('message', 'Atividade removida com sucesso!');
+        return redirect()->action('ActivityController@show')
+        ->with('message', 'Atividade removida com sucesso!');
     }
 
 }
