@@ -31,6 +31,7 @@ class ActivityController extends Controller
 
      return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
         ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
+        ->orderBy('beginning_date', 'asc')
         ->paginate(10),
         'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
      ->with('id', $request->session()->get('id'))

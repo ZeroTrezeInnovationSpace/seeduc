@@ -19,7 +19,7 @@
                <div class="col-md-6">
                 <label for="EventSelection" class="lead">Selecione o periodo:</label> 
                 <select class="form-control form-control-md" name="period" id="EventPeriod"  required>
-                    <option value=""></option>
+                    <option value="NULL"></option>
                     <option value="manhã">Manhã</option>
                     <option value="tarde">Tarde</option>
                     <option value="noite">Noite</option>
@@ -52,7 +52,7 @@
             <div class="col-md-6">
                 <label for="RoomSelection" class="lead">Selecione a sala:</label>  
                 <select class="form-control form-control-md" name="room" id="EventPeriod" required>
-
+                    <option value="NULL"></option>
                     @foreach($rooms as $room)
                     <option value="<?php echo($room->id) ?>">{{$room->full_name}}</option>
                     @endforeach
