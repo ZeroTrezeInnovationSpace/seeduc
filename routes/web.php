@@ -12,6 +12,7 @@ Route::get('/verifyCPF', 'UserController@verifyCPF')->name('verifyCPF');
 Route::get('/activities', 'ActivityController@index')->name('activities');
 Route::get('/activities_register', 'ActivityController@create')->name('activities_register');
 Route::post('/activities_save', 'ActivityController@store')->name('activities_save');
+Route::get('/list', 'ActivityController@show')->name('list');
 
 #SUBSCRIBE ROUTES
 Route::post('/subscribe', 'SubscribeController@store')->name('subscribe');

@@ -29,15 +29,15 @@ class ActivityController extends Controller
     		return view('feed.index');    
     	}*/
 
-       return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
+     return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
         ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
         'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
-       ->with('id', $request->session()->get('id'))
-       ->with('bond_id', $request->session()->get('bond_id'))
-       ->with('name', $request->session()->get('name'));
-   }
+     ->with('id', $request->session()->get('id'))
+     ->with('bond_id', $request->session()->get('bond_id'))
+     ->with('name', $request->session()->get('name'));
+ }
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +46,6 @@ class ActivityController extends Controller
      */
     public function create()
     {
-
         return view('activity.create', ['events' => Event::all(), 'locations' => Location::all(), 
             'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all(), 
             'rooms' => Room::select("rooms.*"
@@ -81,10 +80,16 @@ class ActivityController extends Controller
         return redirect()->action('ActivityController@create')->with('sucess', 'Cadastrado com sucesso!');;  
     }
 
-    public function show($id)
+    public function show()
     {        
-    	return view('activity.show', ['activity' => Activity::with('event', 'location', 'public', 'program')->find($id)]);    
-    }
+        $testes =  Activity::with('event', 'location', 'room', 'bond')->get();
+        foreach ($testes as $teste) {
+           print($teste->name);
+        }
+            
+            exit();
+            return view('activity.show', ['activity' => Activity::with('event', 'location', 'room', 'bond', 'speakers')]);    
+        }
 
     /**
      * Show the form for editing the specified resource.
