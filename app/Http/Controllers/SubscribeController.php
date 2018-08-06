@@ -46,22 +46,27 @@ class SubscribeController extends Controller
     {
         #Chamando função para verificar se usuário já está inscrito
         $inscrito = $this->verifySubscriber($request->input('user_id'), $request->input('activity_id'));
-        
-        if($inscrito == 0){   
-            $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); if($date_time == 0){    
-                $subscription = new Subscription;
+        $max = $this->verifyCapacity($request->input('activity_id'));
 
-                $subscription->user_id = $request->input('user_id');
-                $subscription->activity_id = $request->input('activity_id');
+        if($max == 0){
+            if($inscrito == 0){   
+                $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); if($date_time == 0){    
+                    $subscription = new Subscription;
+
+                    $subscription->user_id = $request->input('user_id');
+                    $subscription->activity_id = $request->input('activity_id');
     	//$subscription->certificate = $request->input('certificate');
 
-                $subscription->save();
-                return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
+                    $subscription->save();
+                    return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
+                }else{
+                    return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
+                }
             }else{
-                return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
+                return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
             }
         }else{
-            return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
+           return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
         }
     }
 
@@ -161,5 +166,14 @@ class SubscribeController extends Controller
             }
             
             return $count;
+        }
+        public function verifyCapacity($activity_id){
+            $activity = Activity::where('id', $activity_id)->get();
+            $subscriptions = Subscription::where('activity_id', $activity_id)->count();
+            $full = 0;
+            if($activity[0]->maximum_capacity == $subscriptions ){
+                $full++;
+            }
+            return $full;
         }
     }
