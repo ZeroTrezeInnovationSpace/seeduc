@@ -3,7 +3,6 @@
 <div class="center1">
     <h4 class="display-4">Alterar Atividade</h4><br>
     <div>
-        {{$rooms}}
         <div>
             <form method="POST" action="{{route('activity_update')}}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
