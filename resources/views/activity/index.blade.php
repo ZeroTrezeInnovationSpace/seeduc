@@ -20,7 +20,7 @@
       </tr>
     </thead>
     <tbody >
-      @foreach($activities as $activity)
+      @foreach($activities as $activity)     
       <tr>
         <th scope="row" name="period">{{ date('d', strtotime($activity->beginning_date)) }}</th>
         <td>{{$activity->name}}</td>
@@ -41,26 +41,31 @@
         <td>{{$activity->period}}</td>
         @endif
         <td>{{$activity->maximum_capacity}}</td>
-        <td>{{$activity->location->name}} - {{$activity->location->full_adress}} 
-          {{$activity->location->adress_number}}</td>
-          <td>
-           <form method="POST" action="subscribe">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
-            <input type="hidden" name="user_id" value="<?php echo($id)?>">
-            <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
-            <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
-            <button type="submit" class="btn btn-success" style="width: 150px;">Inscrever-se</button>
-          </form>
+        <td>
+          {{$activity->location->name}} - {{$activity->location->full_adress}} 
+          {{$activity->location->adress_number}} -
+          @if(isset($activity->room->name))
+          {{$activity->room->name}}
+          @endif
         </td>
-      </tr>
-      @endforeach        
-    </tbody>
-  </table>
-  <div class="pagination justify-content-center">
-    {!! $activities->links() !!}
-  </div>
-  <br>
-  <button type="button" onclick="location.href='feed'"; class="btn btn-danger" style="width: 150px;">Voltar Painel</button>
+        <td>
+         <form method="POST" action="subscribe">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+          <input type="hidden" name="user_id" value="<?php echo($id)?>">
+          <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
+          <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
+          <button type="submit" class="btn btn-success" style="width: 150px;">Inscrever-se</button>
+        </form>
+      </td>
+    </tr>
+    @endforeach        
+  </tbody>
+</table>
+<div class="pagination justify-content-center">
+  {!! $activities->links() !!}
+</div>
+<br>
+<button type="button" onclick="location.href='feed'"; class="btn btn-danger" style="width: 150px;">Voltar Painel</button>
 </div>
 
 @if(session()->has('sucess'))

@@ -29,7 +29,7 @@ class ActivityController extends Controller
     		return view('feed.index');    
     	}*/
 
-     return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond')
+     return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond', 'room')
         ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
@@ -124,8 +124,6 @@ class ActivityController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email,'. $id .'|max:255',
         ]);*/
-
-        print_r($request->input('room_id'));
         
         $activity = Activity::find($request->input('id'));
         $activity->room_id = $request->input('room_id');
