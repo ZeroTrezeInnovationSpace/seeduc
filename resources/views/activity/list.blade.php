@@ -9,7 +9,7 @@
         <th scope="col" name="eventDate">Data</th>
         <th scope="col" name="eventDate">Tema</th>
         <th scope="col" name="eventDate">Ementa</th>
-        <th scope="col" name="eventDate">Mini Currículo</th>
+        <th scope="col" name="eventDate">Palestrantes</th>
         <th scope="col" name="eventDate">Público-Alvo</th>
         <th scope="col" name="eventDate">Período</th>
         <th scope="col" name="eventDate">Número de Vagas</th>
@@ -24,7 +24,7 @@
     <th scope="row" name="period">{{ date('d', strtotime($activity->beginning_date)) }}</th>
     <td>{{$activity->name}}</td>
     <td style="height: 150px; overflow-y: auto; overflow-x: hidden; display: block;">{{$activity->description}}</td>
-    <td>-</td>
+    <td>{{$activity->description_speaker}}</td>
     <td>{{$activity->bond->name}}</td>
     @if($activity->period == 'trilha')
     <td>8h às 14h</td>

@@ -99,7 +99,7 @@ class ActivityController extends Controller
     public function manage(Request $request)
     {
         $id = $request->input('activity_id');
-    	return view('activity.manage', ['activity' => Activity::with('event', 'location', 'bond')->find($id), 'events' => Event::all(), 'locations' => Location::all(), 
+        return view('activity.manage', ['activity' => Activity::with('event', 'location', 'bond')->find($id), 'events' => Event::all(), 'locations' => Location::all(), 
             'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all(), 
             'rooms' => Room::select("rooms.*"
                 ,DB::raw("CONCAT(locations.name,' ',rooms.name) as full_name"))
@@ -116,7 +116,6 @@ class ActivityController extends Controller
      */
     public function update(Request $request)
     {
-
         /*echo '<br>';
         print_r($request->speakers);
         print_r($request->speakers[0]);
@@ -135,8 +134,9 @@ class ActivityController extends Controller
         $activity->maximum_capacity = $request->input('maximum_capacity');
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
-        $activity->bond_id = $request->input('bonds');
+        //$activity->bond_id = $request->input('bonds');
         $activity->room_id = $request->input('room');
+        $activity->description_speaker = $request->input('description_speaker');
 
         $activity->save();
         return redirect()->action('ActivityController@show');
