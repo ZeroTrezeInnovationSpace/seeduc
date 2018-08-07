@@ -21,16 +21,23 @@
     </thead>
     <tbody >
       @foreach($activities as $activity)
+      {{$activity->period}}
       <tr>
         <th scope="row" name="period">{{ date('d', strtotime($activity->beginning_date)) }}</th>
         <td>{{$activity->name}}</td>
         <td style="height: 150px; overflow-y: auto; overflow-x: hidden; display: block;">{{$activity->description}}</td>
         <td>-</td>
         <td>{{$activity->bond->name}}</td>
-        @if($activity->period == 'manhã')
+        @if($activity->period == 'trilha')
+        <td>8h às 14h</td>
+        @elseif($activity->period == 'manhã')
         <td>9h às 11h</td>
+        @elseif($activity->period == 'VLImanha')
+        <td>8h às 12h</td>
         @elseif($activity->period == 'tarde')
         <td>14h às 16h</td>
+        @elseif($activity->period == 'VLItarde')
+        <td>13h30 às 17h30</td>
         @elseif($activity->period == 'noite')
         <td>{{$activity->period}}</td>
         @endif
