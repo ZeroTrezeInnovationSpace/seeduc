@@ -45,7 +45,7 @@
     
     <script type="text/javascript" >
         var j = 0;
-       function duplicarCampos(){
+        function duplicarCampos(){
             j++;
             var a = j-1; 
             var clone = document.getElementById('EventSpeakers'+a).cloneNode(true);
@@ -55,49 +55,49 @@
             destino.appendChild(clone);
             var camposClonados = clone.getElementsByTagName('input');
             for(i=0; i<camposClonados.length;i++){
-                  camposClonados[i].value = '1';
-             }
-       }
-         
-      function removerCampos(id){
-            var node1 = document.getElementById('destino');
-            node1.removeChild(node1.childNodes[0]);
-       }
-       function duplicarCamposPublico(){
-            var clone = document.getElementById('EventBonds').cloneNode(true);
-            var destino = document.getElementById('destiny');
-            destino.appendChild (clone);
-            var camposClonados = clone.getElementsByTagName('input');
-            for(i=0; i<camposClonados.length;i++){
-              camposClonados[i].value = '';
+              camposClonados[i].value = '1';
           }
       }
-      function removerCamposPublico(id){
-        var node1 = document.getElementById('destiny');
+      
+      function removerCampos(id){
+        var node1 = document.getElementById('destino');
         node1.removeChild(node1.childNodes[0]);
     }
+    function duplicarCamposPublico(){
+        var clone = document.getElementById('EventBonds').cloneNode(true);
+        var destino = document.getElementById('destiny');
+        destino.appendChild (clone);
+        var camposClonados = clone.getElementsByTagName('input');
+        for(i=0; i<camposClonados.length;i++){
+          camposClonados[i].value = '';
+      }
+  }
+  function removerCamposPublico(id){
+    var node1 = document.getElementById('destiny');
+    node1.removeChild(node1.childNodes[0]);
+}
 
 
-    function verificate(){
+function verificate(){
 
-        var password = document.getElementById('password').value;
-        var confirmPassword = document.getElementById('confirmPassword').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
 
-        if(password != confirmPassword){
+    if(password != confirmPassword){
 
-            alert("suas senhas devem ser iguais");
-            document.getElementById('confirmPassword').value = "";      
-
-        }
-
-        else{
-
-
-        }
+        alert("suas senhas devem ser iguais");
+        document.getElementById('confirmPassword').value = "";      
 
     }
 
-    function limpa_formulário_cep() {
+    else{
+
+
+    }
+
+}
+
+function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
             document.getElementById('adress').value=("");
             document.getElementById('district').value=("");
@@ -162,12 +162,12 @@
     }
 //mascara para telefone
 function mascara(t, mask){
- var i = t.value.length;
- var saida = mask.substring(1,0);
- var texto = mask.substring(i)
- if (texto.substring(0,1) != saida){
-     t.value += texto.substring(0,1);
- }
+   var i = t.value.length;
+   var saida = mask.substring(1,0);
+   var texto = mask.substring(i)
+   if (texto.substring(0,1) != saida){
+       t.value += texto.substring(0,1);
+   }
 }  
 
 
@@ -189,7 +189,7 @@ function previewImagem(){
 }
 
 $(document).ready(function(){
-   $("#cpf").keyup(function() {
+ $("#cpf").keyup(function() {
     var valor = $(this).val().length;
     if (valor === 11){
         var cpf = document.getElementById('cpf').value;
@@ -213,9 +213,9 @@ $(document).ready(function(){
         $('#second_register_id').attr('disabled', true);
     }
 });
-   jQuery("#telefone")
-   .mask("(99) 9999-9999?9")
-   .focusout(function (event) {  
+ jQuery("#telefone")
+ .mask("(99) 9999-9999?9")
+ .focusout(function (event) {  
     var target, phone, element;  
     target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
     phone = target.value.replace(/\D/g, '');
@@ -230,7 +230,7 @@ $(document).ready(function(){
 });
 
 </script>
-
+<!--Start of Tawk.to Script--> <script type="text/javascript"> var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); (function(){ var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0]; s1.async=true; s1.src='https://embed.tawk.to/5b6889c8e21878736ba2acf9/default'; s1.charset='UTF-8'; s1.setAttribute('crossorigin','*'); s0.parentNode.insertBefore(s1,s0); })(); </script> <!--End of Tawk.to Script-->
 @yield('content')
 </body>
 

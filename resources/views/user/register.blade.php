@@ -2,8 +2,8 @@
 
 @section('content')
 &nbsp;<a href="/seeduc"><img src="https://marketplace.canva.com/MAB4qEAhS1M/1/thumbnail_large/canva-directional-arrow-icon-MAB4qEAhS1M.png" style="max-width:100px;
-    max-height:50px;"></a>
-    <br> &ensp; <font style="color: green;">Voltar</font>
+max-height:50px;"></a>
+<br> &ensp; <font style="color: green;">Voltar</font>
 <div class="center1">
 	@if ($errors->any())
 	<div class="alert alert-danger">
@@ -14,6 +14,11 @@
 		</ul>
 	</div>
 	@endif
+	<div class="centerWarning">
+		<div class="alert alert-danger" role="alert">
+			<p class="alert-link" style="color: black; text-align: center;">Se você é profissional de Educação Física ou da Educação Infantil (professores, gestores e educadores de entidades subvencionadas) e quiser visualizar todas as atividades para este público não esqueça de selecionar o perfil correto no seu cadastro [ Educação Física - Professores ] ou [ Educação Infantil - Gestão - Professor - Educadores e Subvencionadas - SEDUC ]</p>
+		</div>
+	</div>
 	<legend>Cadastro de Usuário</legend> <br>
 	<form method="POST" action="{{route('register_user')}}" enctype="multipart/form-data">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}"> 		
