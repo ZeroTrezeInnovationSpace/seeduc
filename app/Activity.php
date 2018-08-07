@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
-    public function speakers(){
+	public function speakers(){
 		return $this->hasMany('App\Speaker');
 	}
 
@@ -25,11 +25,15 @@ class Activity extends Model
 	public function room(){
 		return $this->belongsTo('App\Room');
 	}
-
+	/*
 	public function bonds(){
 		return $this->belongsToMany('App\Bond', 'activity_bonds', 'activity_id', 'bond_id');
+	}*/
+	
+	public function bond(){
+		return $this->belongsTo('App\Bond');
 	}
-
+	
 	public function users(){
 		return $this->belongsToMany('App\User', 'subscriptions', 'activity_id', 'user_id');
 	}

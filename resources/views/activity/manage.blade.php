@@ -1,9 +1,5 @@
 @extends('layouts.register') 
 @section('content')
-
-
-{{ $activity }}
-<?php// exit?>
 <div class="center1">
     <h4 class="display-4">Alterar Atividade</h4><br>
     <div>
@@ -95,7 +91,7 @@
         <div class="form-row">
             <div class="col-md-6">
                 <label for="bonds" class="lead">Publico Alvo:</label>
-                <select class="form-control form-control-md" name="bonds[]" style="margin-bottom: 10px" id="EventBonds">  
+                <select class="form-control form-control-md" name="bonds" style="margin-bottom: 10px" id="EventBonds">  
                     @foreach($bonds as $bond)                         
                         <option value="<?php echo($bond->id) ?>">{{$bond->name}}</option>  
                     @endforeach
@@ -107,12 +103,7 @@
             </div>
             <div class="col-md-12" id="destiny">
             </div>
-            <!--<div class="col-md-2">
-                <label for="RoomSelection" class="lead">Salas cadastradas anteriormente:</label>  
-                    @foreach($activity->bonds as $bond)
-                        <input type="checkbox" name="old_bond[]" value="{{ $bond }}">
-                    @endforeach
-            </div>-->
+            
         </div>
         
         <input type="submit" name="register" style="margin-top: 30px;" class="btn btn-success col-md-2" value="Cadastrar">

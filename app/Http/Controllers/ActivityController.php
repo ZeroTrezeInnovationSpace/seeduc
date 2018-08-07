@@ -99,7 +99,7 @@ class ActivityController extends Controller
     public function manage(Request $request)
     {
         $id = $request->input('activity_id');
-    	return view('activity.manage', ['activity' => Activity::with('event', 'location', 'bonds')->find($id), 'events' => Event::all(), 'locations' => Location::all(), 
+    	return view('activity.manage', ['activity' => Activity::with('event', 'location', 'bond')->find($id), 'events' => Event::all(), 'locations' => Location::all(), 
             'speakers' => Speaker::orderBy('name', 'asc')->get(), 'bonds' => Bond::all(), 
             'rooms' => Room::select("rooms.*"
                 ,DB::raw("CONCAT(locations.name,' ',rooms.name) as full_name"))
@@ -117,16 +117,16 @@ class ActivityController extends Controller
     public function update(Request $request)
     {
 
-        echo '<br>';
+        /*echo '<br>';
         print_r($request->speakers);
         print_r($request->speakers[0]);
-        exit;
+        exit;*/
         /*$this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users,email,'. $id .'|max:255',
         ]);*/
 
-        $activity = Activity::find($id);
+        $activity = Activity::find($request->input('id'));
         $activity->name = $request->input('name');
         $activity->description = $request->input('description');
         $activity->beginning_date = $request->input('beginning_date');
@@ -135,11 +135,11 @@ class ActivityController extends Controller
         $activity->maximum_capacity = $request->input('maximum_capacity');
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
-        $activity->bond_id = $request->input('public_id');
+        $activity->bond_id = $request->input('bonds');
         $activity->room_id = $request->input('room');
 
         $activity->save();
-        return redirect()->action('ActivityController@index');
+        return redirect()->action('ActivityController@show');
     }
 
     /**
