@@ -90,6 +90,7 @@
               <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
               <input type="hidden" name="name" value="<?php echo($name)?>">
               <input type="hidden" name="id" value="<?php echo($id)?>">
+              <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
               <button type="submit" class="btn btn-primary">Gerar Inscrição</button>
             </form>
           </td>

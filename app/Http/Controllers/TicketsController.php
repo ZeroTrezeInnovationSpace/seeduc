@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tickets;
 use PDF;
+use App\Activity;
 
 class TicketsController extends Controller
 {
@@ -26,14 +27,15 @@ class TicketsController extends Controller
     }
 
     public function generate(Request $request){
+        $id = $request->input('activity_id');
+        $activity = Activity::with('event', 'location', 'room')->find($id);
         if($request->input('bond_id') == 1){
-            $pdf = PDF::loadView('ticket.generate_intern');
+            $pdf = PDF::loadView('ticket.generate_intern',['activity' => $activity]);
         }else{//if($request->input('bond_id') == 3){
-            $pdf = PDF::loadView('ticket.generate_extern');
+            $pdf = PDF::loadView('ticket.generate_extern',['activity' => $activity]);
         }
-        
-        return $pdf->download("inscrição.pdf");
 
+        return $pdf->download("inscrição.pdf");
     }
 
     /**
