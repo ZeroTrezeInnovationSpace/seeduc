@@ -28,7 +28,7 @@ class TicketsController extends Controller
     public function generate(Request $request){
         if($request->input('bond_id') == 1){
             $pdf = PDF::loadView('ticket.generate_intern');
-        }elseif($request->input('bond_id') == 3){
+        }else{//if($request->input('bond_id') == 3){
             $pdf = PDF::loadView('ticket.generate_extern');
         }
         
