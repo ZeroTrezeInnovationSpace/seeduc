@@ -45,7 +45,7 @@
     
     <script type="text/javascript" >
         var j = 0;
-        function duplicarCampos(){
+       function duplicarCampos(){
             j++;
             var a = j-1; 
             var clone = document.getElementById('EventSpeakers'+a).cloneNode(true);
@@ -57,11 +57,12 @@
             for(i=0; i<camposClonados.length;i++){
                   camposClonados[i].value = '1';
              }
-      }
+       }
+         
       function removerCampos(id){
-        var node1 = document.getElementById('destino');
-        node1.removeChild(node1.childNodes[0]);
-    }
+            var node1 = document.getElementById('destino');
+            node1.removeChild(node1.childNodes[0]);
+       }
        function duplicarCamposPublico(){
             var clone = document.getElementById('EventBonds').cloneNode(true);
             var destino = document.getElementById('destiny');

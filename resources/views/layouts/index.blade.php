@@ -23,6 +23,22 @@
 		margin-top: 50px;
 	</style>
 	<script>
+		function searchActivity() {
+            var input, filter, table, tr, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                a = tr[i].getElementsByTagName("td")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        } 
+
 		function displayView(){
 			var display1 = document.getElementById("EventViewTable");
 			var display2 = document.getElementById("EventSelectionTable");

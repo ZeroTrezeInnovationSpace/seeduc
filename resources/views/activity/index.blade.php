@@ -4,7 +4,9 @@
 <div class="center1">
   <h4><legend><b>Eventos Semana da Educação</b></legend></h4>
   <br>
-  <br><br>
+  <input class="form-control" type="text" id="myInput" onkeyup="searchActivity()" placeholder="Pesquise por Atividades..." title="Type in a name">
+  <br>
+  <br>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -19,7 +21,7 @@
         <th scope="col" name="eventDate">#</th>
       </tr>
     </thead>
-    <tbody >
+    <tbody id="myTable">
       @foreach($activities as $activity)
       <tr>
         <th scope="row" name="period">{{ date('d', strtotime($activity->beginning_date)) }}</th>
