@@ -43,7 +43,7 @@ class UserController extends Controller
 	}
 
 	public function registerIndex(){
-		return view('user.register', ['bonds' => Bond::orderBy('id', 'asc')->get()]);
+		return view('user.register', ['bonds' => Bond::orderBy('id', 'desc')->get()]);
 	}
 
 	public function register(Request $request){ 
