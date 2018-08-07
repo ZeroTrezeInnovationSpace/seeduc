@@ -40,11 +40,11 @@
         </div>
         <div>
             <label class="lead">Entre com a descrição da atividade</label>
-            <textarea name="description" placeholder="Descrição da atividade..." class="form-control" rows="5"  value="{{$activity->description}}"required>{{$activity->description}}</textarea>
+            <textarea name="description" placeholder="Descrição da atividade..." class="form-control" rows="5"  value="{{$activity->description}}" required>{{$activity->description}}</textarea>
         </div>
         <div>
             <label class="lead">Entre com palestrantes da atividade</label>
-            <textarea name="description_speaker" placeholder="Palestrantes" class="form-control" rows="5"  required></textarea>
+            <textarea value="{{$activity->description_speaker}}" name="description_speaker" placeholder="Palestrantes" class="form-control" rows="5"  required>{{$activity->description_speaker}}</textarea>
         </div>
         <div class="form-row">
             <div class="col-md-6">
