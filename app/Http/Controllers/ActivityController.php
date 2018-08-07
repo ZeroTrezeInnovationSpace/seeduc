@@ -125,7 +125,10 @@ class ActivityController extends Controller
             'email' => 'required|unique:users,email,'. $id .'|max:255',
         ]);*/
 
+        print_r($request->input('room_id'));
+        
         $activity = Activity::find($request->input('id'));
+        $activity->room_id = $request->input('room_id');
         $activity->name = $request->input('name');
         $activity->description = $request->input('description');
         $activity->beginning_date = $request->input('beginning_date');
@@ -135,7 +138,6 @@ class ActivityController extends Controller
         $activity->event_id = $request->input('event_id');
         $activity->location_id = $request->input('location_id');
         //$activity->bond_id = $request->input('bonds');
-        $activity->room_id = $request->input('room');
         $activity->description_speaker = $request->input('description_speaker');
 
         $activity->save();
