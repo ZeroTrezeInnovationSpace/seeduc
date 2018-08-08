@@ -152,6 +152,7 @@ class ActivityController extends Controller
     {
         $id = $request->input('activity_id');
         $activity = Activity::findOrFail($id);
+        
         $activity->delete();
 
         return redirect()->action('ActivityController@show')
