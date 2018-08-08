@@ -183,7 +183,7 @@ public function show($id)
             $activity = Activity::where('id', $activity_id)->get();
             $subscriptions = Subscription::where('activity_id', $activity_id)->count();
             $full = 0;
-            if($activity[0]->maximum_capacity == $subscriptions ){
+            if($activity[0]->maximum_capacity == $subscriptions){
                 $full++;
             }
             return $full;
