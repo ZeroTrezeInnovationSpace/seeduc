@@ -7,6 +7,7 @@ use App\User;
 use App\InternalInfo;
 use DateTime;
 use App\Bond;
+use App\Http\Controllers\MailController as Mail;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -121,9 +122,29 @@ class UserController extends Controller
 		        $user->save();
 		        return redirect('/')->with('success', 'Senha alterada com sucesso!');
 			}
+
+			public function rememberPassword(){
+				return view('auth.verifyRememberPassword');
+			}
+
+			public function verifyRememberPassword(Request $request){
+				$users = User::where('CPF', $request->input('CPF'))->where('email', $request->input('email'))->get();
+				if($users){
+					foreach ($users as $user) {
+						//$user->update_password = 0;
+		        		//$user->save();
+						$mail = new Mail();
+						$mail = $mail->rememberPassword($user->email, $user->name);
+						if($mail == 1){
+		        			return redirect('/remember_password')->with('success', 'Email enviado com sucesso!');
+		        		}else{
+		        			return redirect('/remember_password')->with('error', 'Erro ao enviar email de refinição de senha!');
+		        		}
+					}
+				}
+				return redirect('/remember_password')->with('error', 'CPF ou Email informados não correspondentes!');			
+			}
 		}
-
-
 
 
 

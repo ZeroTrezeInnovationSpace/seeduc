@@ -9,6 +9,10 @@ Route::post('/register_user', 'UserController@register')->name('register_user');
 Route::get('/verifyCPF', 'UserController@verifyCPF')->name('verifyCPF');
 Route::post('/new_password', 'UserController@newPassword')->name('new_password');
 
+Route::get('/remember_password', 'UserController@rememberPassword')->name('remember_password');
+Route::post('/verify_remember_password', 'UserController@verifyRememberPassword')->name('verify_remember_password');
+
+
 #ACTIVITY ROUTES
 Route::get('/activities', 'ActivityController@index')->name('activities');
 Route::get('/activities_register', 'ActivityController@create')->name('activities_register');
