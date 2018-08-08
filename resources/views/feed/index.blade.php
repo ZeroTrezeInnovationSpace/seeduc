@@ -115,6 +115,10 @@
     <br>
     <button type="button" onclick="location.href='feed'"; class="btn btn-danger" style="width: 150px;">Voltar Painel</button>
 
+    @if(session()->has('info')) 
+    <script type="text/javascript">alert("{{session()->get('info')}}");</script> 
+    @endif
+
 
   </div>
 </div>  

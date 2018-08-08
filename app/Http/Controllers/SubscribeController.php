@@ -124,8 +124,9 @@ public function show($id)
      */
     public function destroy(Request $request)
     {
-    	$subscription = Subscription::findOrFail($request->input('subscription_id'));
-    	$subscription->delete();
+    	$subscription = Subscription::find($request->input('subscription_id'))->delete();
+    	//$subscription->delete();
+        //print($subscription);
 
          /*
         DB::table('subscriptions')
@@ -133,7 +134,8 @@ public function show($id)
         ->where('activity_id', $request->input('activity_id'))
         ->delete(); */ 
 
-        return redirect()->action('FeedController@index'); 
+        return redirect()->action('FeedController@index')
+        ->with('info', 'Cancelado com sucesso: '.$subscription.' - Subs: '.$request->input('subscription_id')); 
     }
 
     public function verifySubscriber($user_id, $activity_id){
