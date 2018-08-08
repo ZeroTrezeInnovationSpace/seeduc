@@ -131,6 +131,8 @@ class UserController extends Controller
 				$users = User::where('CPF', $request->input('CPF'))->where('email', $request->input('email'))->get();
 				if($users){
 					foreach ($users as $user) {
+						//$user->update_password = 0;
+		        		//$user->save();
 						$mail = new Mail();
 						$mail = $mail->rememberPassword($user->email, $user->name);
 						if($mail == 1){
