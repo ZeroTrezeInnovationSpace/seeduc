@@ -131,15 +131,16 @@ class UserController extends Controller
 				$users = User::where('CPF', $request->input('CPF'))->where('email', $request->input('email'))->get();
 				if($users){
 					foreach ($users as $user) {
-						//$user->update_password = 0;
-		        		//$user->save();
-						$mail = new Mail();
+						$user->update_password = 1;
+		        		$user->save();
+		        		return redirect('/')->with('success', 'Solicitação Aceita! Favor tentar novo login e redefinir sua senha');
+						/*$mail = new Mail();
 						$mail = $mail->rememberPassword($user->email, $user->name);
 						if($mail == 1){
 		        			return redirect('/remember_password')->with('success', 'Email enviado com sucesso!');
 		        		}else{
 		        			return redirect('/remember_password')->with('error', 'Erro ao enviar email de refinição de senha!');
-		        		}
+		        		}*/
 					}
 				}
 				return redirect('/remember_password')->with('error', 'CPF ou Email informados não correspondentes!');			
