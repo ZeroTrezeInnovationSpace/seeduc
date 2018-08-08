@@ -11,7 +11,7 @@
         <div id="CPFverification">
                 <form method="POST" action="{{ route('log_in') }}">  
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">    
-                        <input placeholder="CPF" style="box-shadow: 1px -1px 69px 0px rgba(27, 126, 27, 0.51);" class="form-control" type="text" name="CPF" onkeydown="javascript: fMasc( this, mCPF );" required> <br>
+                        <input placeholder="CPF - Sem pontos ou traços - Ex: 11111111111" style="box-shadow: 1px -1px 69px 0px rgba(27, 126, 27, 0.51);" class="form-control" type="text" name="CPF" onkeydown="javascript: fMasc( this, mCPF );" required> <br>
                         <input placeholder="Senha" style="box-shadow: 1px -1px 69px 0px rgba(27, 126, 27, 0.51);" class="form-control" type="password" name="password" required> <br>    
                         <input type="submit" name="LoginVerification" class="btn btn-success"  value="Começar">
                         <!--<button onclick="alert('O Sistema de Inscrição reabrirá amanhã, dia 07/8, às 8h. Desde já, agradecemos a compreensão de todos e todas.');"; type="button"
