@@ -29,7 +29,7 @@ class TicketsController extends Controller
     public function generate(Request $request){
         $id = $request->input('activity_id');
         $activity = Activity::with('event', 'location', 'room')->find($id);
-        if($request->input('bond_id') == 1){
+        if($request->input('bond_id') != 3){
             $pdf = PDF::loadView('ticket.generate_intern',['activity' => $activity]);
         }else{//if($request->input('bond_id') == 3){
             $pdf = PDF::loadView('ticket.generate_extern',['activity' => $activity]);
