@@ -33,6 +33,7 @@ class ActivityController extends Controller
         ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
+        'search_key' => $request->input('search_key'),
         'subscriptions' => Subscription::all()->where('user_id', $request->session()->get('id'))])
      ->with('id', $request->session()->get('id'))
      ->with('bond_id', $request->session()->get('bond_id'))
@@ -134,7 +135,15 @@ class ActivityController extends Controller
      */
     public function update(Request $request)
     {
-             
+        /*echo '<br>';
+        print_r($request->speakers);
+        print_r($request->speakers[0]);
+        exit;*/
+        /*$this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users,email,'. $id .'|max:255',
+        ]);*/
+        
         $activity = Activity::find($request->input('id'));
         $activity->room_id = $request->input('room_id');
         $activity->name = $request->input('name');
