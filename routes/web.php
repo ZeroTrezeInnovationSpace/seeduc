@@ -22,7 +22,7 @@ Route::post('/delete_activity', 'ActivityController@destroy')->name('delete_acti
 Route::get('/activity_manage/', 'ActivityController@manage')->name('activity_manage');
 Route::post('/activity_update', 'ActivityController@update')->name('activity_update');
 
-Route::post('/search_activity', 'ActivityController@searchActivity')->name('search_activity');
+Route::get('/search_activity', 'ActivityController@searchActivity')->name('search_activity');
 
 #SUBSCRIBE ROUTES
 Route::post('/subscribe', 'SubscribeController@store')->name('subscribe');
