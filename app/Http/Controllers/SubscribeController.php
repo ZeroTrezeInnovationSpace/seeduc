@@ -61,7 +61,6 @@ class SubscribeController extends Controller
 
                         $subscription->user_id = $request->input('user_id');
                         $subscription->activity_id = $request->input('activity_id');
-    	//$subscription->certificate = $request->input('certificate');
 
                         $subscription->save();
                         return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
@@ -69,9 +68,9 @@ class SubscribeController extends Controller
                         return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
                     }
                 }else{
-                 return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
-             }
-         }else{
+                   return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
+               }
+           }else{
             return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
         }
     }
@@ -79,7 +78,7 @@ class SubscribeController extends Controller
 
 public function show($id)
 {        
-   return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
+ return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
 }
 
     /**
@@ -158,34 +157,31 @@ public function show($id)
 
     public function verifyDateTimeActivity($user_id, $activity_id){
         $activity = Activity::where('id', $activity_id)->get();
-        /*print($activity);
-        foreach ($activity as $key ) {
-            print($key);
-        }
 
-        exit();*/
         $verificar = DB::table('activities')
         ->join('subscriptions', 'activities.id', '=', 'subscriptions.activity_id')
         ->where('subscriptions.user_id', $user_id)
         ->select('activities.beginning_date', 'activities.period')
         ->get();
-
+        
         $count = 0;
         foreach ($verificar as $verifica) {
             if($verifica->period == $activity[0]->period && 
                 $verifica->beginning_date == $activity[0]->beginning_date)
-                $count++; 
+                ++$count; 
             }
             
             return $count;
         }
+
         public function verifyCapacity($activity_id){
             $activity = Activity::where('id', $activity_id)->get();
             $subscriptions = Subscription::where('activity_id', $activity_id)->count();
             $full = 0;
-            if($activity[0]->maximum_capacity == $subscriptions){
+            if($activity[0]->maximum_capacity == $subscriptions && $activity[0]->maximum_capacity == 0){
                 $full++;
             }
             return $full;
         }
+
     }
