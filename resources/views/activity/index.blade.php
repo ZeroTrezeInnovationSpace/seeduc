@@ -4,7 +4,15 @@
 <div class="center1">
   <h4><legend><b>Eventos Semana da Educação</b></legend></h4>
   <br>
-  <input class="form-control" type="text" id="myInput" onkeyup="searchActivity()" placeholder="Pesquise por Atividades..." title="Type in a name">
+  <form method="GET" action="search_activity">
+    <div class="form-row">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input class="form-control col-md-10" type="text" id="search_key" name="search_key" placeholder="Pesquise por Atividades..." title="Type in a name" style="border-radius: 5px 0px 0px 5px;" value='{{ $search_key }}'>
+          <input type="hidden" name="user_id" value="<?php echo($id)?>">
+          <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
+          <button type="submit" class="btn btn-info" style="width: 150px; border-radius: 0px 5px 5px 0px;">Pesquisar</button>
+    </div>
+  </form>
   <br>
   <br>
   <table class="table table-striped">
