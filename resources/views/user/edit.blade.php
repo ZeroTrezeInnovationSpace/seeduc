@@ -1,7 +1,7 @@
 @extends('layouts.index') 
 
 @section('content')
-&nbsp;<a href="/feed"><img src="https://marketplace.canva.com/MAB4qEAhS1M/1/thumbnail_large/canva-directional-arrow-icon-MAB4qEAhS1M.png" style="max-width:100px;
+&nbsp;<a href="/seeduc/feed"><img src="https://marketplace.canva.com/MAB4qEAhS1M/1/thumbnail_large/canva-directional-arrow-icon-MAB4qEAhS1M.png" style="max-width:100px;
 max-height:50px;"></a>
 <br> &ensp; <font style="color: green;">Voltar</font>
 <div class="center1">
