@@ -50,7 +50,7 @@ class SubscribeController extends Controller
 
         if($request->input('bond_id') == 3)
             return redirect()->action('ActivityController@index')->with('error', 
-                'Inscrições público externo dia 09/08');
+                'Inscrições público externo dia 10/08');
         else{
 
             if($inscrito == 0){   

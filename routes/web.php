@@ -8,6 +8,8 @@ Route::get('/register', 'UserController@registerIndex')->name('register');
 Route::post('/register_user', 'UserController@register')->name('register_user');
 Route::get('/verifyCPF', 'UserController@verifyCPF')->name('verifyCPF');
 Route::post('/new_password', 'UserController@newPassword')->name('new_password');
+Route::get('/manage_user', 'UserController@manage')->name('manage_user');
+Route::post('/edit_user', 'UserController@update')->name('edit_user');
 
 Route::get('/remember_password', 'UserController@rememberPassword')->name('remember_password');
 Route::post('/verify_remember_password', 'UserController@verifyRememberPassword')->name('verify_remember_password');

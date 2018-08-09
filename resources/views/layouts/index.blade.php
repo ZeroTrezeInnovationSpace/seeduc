@@ -10,6 +10,9 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-  ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
 	<title>
 	</title>
 	<style>
@@ -128,15 +131,64 @@
 				example.style.display = "none";
 
 			} 
-		};  
+		}; 
+
+		function confirmation() {
+			var answer = confirm('Caso tenha atualizado seu segmento saiba que ele será atualizado junto à Secretária de Educação. \nAo clicar em "OK" você estará aceitando esses termo. \nDeseja Continuar? ');
+			if (answer == false) {
+				event.returnValue = false; 
+			}
+		}
+
+		$(document).ready(function(){
+			$("#cpf").keyup(function() {
+				var valor = $(this).val().length;
+				if (valor === 11){
+					var cpf = document.getElementById('cpf').value;
+					$.ajax({
+						type: "GET",
+						data: {CPF: cpf} ,
+						url: "verifyCPF",
+						success: function(resposta){
+							console.log(resposta);
+							if(resposta == '1'){
+								$('#register_id').attr('disabled', false);
+								$('#second_register_id').attr('disabled', false);
+								console.log('Verdadeiro');
+							}else{
+								console.log('falso');
+							}
+						}  
+					});
+				}else{
+					$('#register_id').attr('disabled', true);
+					$('#second_register_id').attr('disabled', true);
+				}
+			});
+
+			jQuery("#telefone")
+			.mask("(99) 9999-9999?9")
+			.focusout(function (event) {  
+				var target, phone, element;  
+				target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
+				phone = target.value.replace(/\D/g, '');
+				element = $(target);  
+				element.unmask();  
+				if(phone.length > 10) {  
+					element.mask("(99) 99999-999?9");  
+				} else {  
+					element.mask("(99) 9999-9999?9");  
+				}  
+			});
+		});
+
 	</script>
 </head>
 <body>
 	<nav class="navbar  navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">
 			<img src="https://cdn.iconscout.com/public/images/icon/premium/png-512/registration-online-computer-internet-login-subscription-form-ecommerce-3acc50941018c860-512x512.png" width="30" height="30" class="d-inline-block align-top" width="30" height="30" class="d-inline-block align-top" alt="">
-			SEEDUC - Sistema de Eventos da Educação
-			de Santos
+			SEEDUC - Sistema de Eventos da Educação de Santos
 		</a>
 
 		<img src="https://openclipart.org/download/247319/abstract-user-flat-3.svg" width="30" height="30" class="d-inline-block align-top-left" style="position: absolute; left: 850px;">

@@ -2,6 +2,12 @@
 @section('content')
 
 <div class="center1">
+  <form method="GET" action="manage_user">
+    <div class="col-md-6" style="text-align: left;">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <button type="submit"  class="btn btn-danger">Editar Cadastro</button> 
+    </div>
+  </form>
   <h4 class="display-4"><b>Meu Painel</h4></b><br>
   <div>
     <div class="form-row">
