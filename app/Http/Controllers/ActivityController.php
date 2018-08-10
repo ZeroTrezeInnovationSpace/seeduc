@@ -30,7 +30,7 @@ class ActivityController extends Controller
     	}*/
 
      return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond', 'room')
-        ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
+        //->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
         'search_key' => $request->input('search_key'),
@@ -45,7 +45,7 @@ class ActivityController extends Controller
 
      $activities = Activity::with('event', 'subscribers', 'location', 'bond', 'room')
         ->where('name', 'like', '%' . $request->input('search_key') . '%')   
-        ->whereIn('bond_id', [$request->session()->get('bond_id'),1,2,3])
+        //->whereIn('bond_id', [$request->session()->get('bond_id'),1,2,3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10)
         ->appends(['search_key' => $request->input('search_key')]);
