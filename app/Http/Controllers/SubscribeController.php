@@ -169,7 +169,7 @@ public function show($id)
         }
 
         public function verifyCapacity($activity_id){
-            if($activity_id == 14){
+            if($activity_id == 14 || $activity_id = 152 || $activity_id = 85 || $activity_id = 159 ){
                 return 1;
             }
             else{
