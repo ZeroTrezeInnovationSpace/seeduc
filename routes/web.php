@@ -23,8 +23,12 @@ Route::get('/list', 'ActivityController@show')->name('list');
 Route::post('/delete_activity', 'ActivityController@destroy')->name('delete_activity');
 Route::get('/activity_manage/', 'ActivityController@manage')->name('activity_manage');
 Route::post('/activity_update', 'ActivityController@update')->name('activity_update');
-
 Route::get('/search_activity', 'ActivityController@searchActivity')->name('search_activity');
+
+//Dashboard
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboard_search', 'DashboardController@search')->name('dashboard_search');
+
 
 #SUBSCRIBE ROUTES
 Route::post('/subscribe', 'SubscribeController@store')->name('subscribe');

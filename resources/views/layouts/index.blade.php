@@ -27,6 +27,47 @@
 	</style>
 	<script>
 
+		var chart;
+        var legend;
+        var chartData = [{
+                Tipo: "inscritos",
+                Número: 30
+            }, {
+                Tipo: "ingressos",
+                Número: 100
+            },{
+                Presenca: "Presentes",
+                Pessoas: 10
+            },{
+                Presenca: "Inscritos",
+                Pessoas: 45
+            }];
+            AmCharts.ready(function () {
+                // PIE CHART
+                chart = new AmCharts.AmPieChart();
+                chart.dataProvider = chartData;
+                chart.titleField = "Tipo";
+                chart.valueField = "Número";
+                chart.outlineColor = "#FFFFFF";
+                chart.outlineAlpha = 0.8;
+                chart.outlineThickness = 2;
+
+                // WRITE
+                chart.write("Ingresso");
+            });
+            AmCharts.ready(function () {
+                // PIE CHART
+                chart = new AmCharts.AmPieChart();
+                chart.dataProvider = chartData;
+                chart.titleField = "Presenca";
+                chart.valueField = "Pessoas";
+                chart.outlineColor = "#FFFFFF";
+                chart.outlineAlpha = 0.8;
+                chart.outlineThickness = 2;
+
+                // WRITE
+                chart.write("Presenca");
+            });
 
 
 

@@ -2,12 +2,21 @@
 @section('content')
 
 <div class="center1">
-  <form method="GET" action="manage_user">
-    <div class="col-md-6" style="text-align: left;">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <button type="submit"  class="btn btn-danger">Editar Cadastro</button> 
-    </div>
-  </form>
+  <div class="row">
+    <form method="GET" action="manage_user" style="float: left;">
+      <div class="col-md-6">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <button type="submit"  class="btn btn-danger">Editar Cadastro</button> 
+      </div>
+    </form>
+
+    <form method="GET" action="dashboard" style="float: right;">
+      <div class="col-md-6">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <button type="submit"  class="btn btn-info">Dashboard</button> 
+      </div>
+    </form>
+  </div>
   <h4 class="display-4"><b>Meu Painel</h4></b><br>
   <div>
     <div class="form-row">
