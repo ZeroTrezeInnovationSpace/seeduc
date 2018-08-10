@@ -180,7 +180,7 @@
 		}; 
 
 		function confirmation() {
-			var answer = confirm('Caso tenha atualizado seu segmento saiba que ele será atualizado junto à Secretária de Educação. \nAo clicar em "OK" você estará aceitando esses termo. \nDeseja Continuar? ');
+			var answer = confirm('Caso tenha atualizado seu segmento saiba que ele será atualizado junto à Secretária de Educação. \nAo clicar em "OK" você estará aceitando esse termo. \nDeseja Continuar? ');
 			if (answer == false) {
 				event.returnValue = false; 
 			}

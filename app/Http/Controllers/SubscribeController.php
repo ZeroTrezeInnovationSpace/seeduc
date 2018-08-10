@@ -48,31 +48,25 @@ class SubscribeController extends Controller
         $inscrito = $this->verifySubscriber($request->input('user_id'), $request->input('activity_id'));
         $max = $this->verifyCapacity($request->input('activity_id'));
 
-        if($request->input('bond_id') == 3)
-            return redirect()->action('ActivityController@index')->with('error', 
-                'Inscrições público externo dia 10/08');
-        else{
+        if($inscrito == 0){   
+            if($max == 0){
+                $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); 
+                if($date_time == 0){    
+                    $subscription = new Subscription;
 
-            if($inscrito == 0){   
-                if($max == 0){
-                    $date_time = $this->verifyDateTimeActivity($request->input('user_id'), $request->input('activity_id')); 
-                    if($date_time == 0){    
-                        $subscription = new Subscription;
+                    $subscription->user_id = $request->input('user_id');
+                    $subscription->activity_id = $request->input('activity_id');
 
-                        $subscription->user_id = $request->input('user_id');
-                        $subscription->activity_id = $request->input('activity_id');
-
-                        $subscription->save();
-                        return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
-                    }else{
-                        return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
-                    }
+                    $subscription->save();
+                    return redirect()->action('ActivityController@index')->with('sucess', 'Inscrito com sucesso!');
                 }else{
-                 return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
-             }
-         }else{
-            return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
-        }
+                    return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
+                }
+            }else{
+             return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
+         }
+     }else{
+        return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
     }
 }
 
