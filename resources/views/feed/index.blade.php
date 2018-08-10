@@ -53,7 +53,6 @@
         <th scope="col">Nos de sua opinião</th>
         <th scope="col">Certificação</th>
         <th scope="col">#</th>
-        <th scope="col">#</th>
       </tr>
     </thead>
     <tbody>
@@ -91,16 +90,6 @@
           @endforeach
           @if($subscriber->check_in == '0')
           <td>
-            <form method="POST" action="ticket">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
-              <input type="hidden" name="name" value="<?php echo($name)?>">
-              <input type="hidden" name="id" value="<?php echo($id)?>">
-              <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
-              <button type="submit" class="btn btn-primary">Gerar Inscrição</button>
-            </form>
-          </td>
-          <td>
             <form method="POST" action="unsubscribe">
               <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
               <input type="hidden" name="subscription_id" value="<?php echo($subscriber->id)?>">
@@ -110,7 +99,6 @@
             </form>
           </td>
           @else
-          <td><button disabled type="button" class="btn btn-primary">Gerar Inscrição</button></td>
           <td><button disabled type="button" class="btn btn-danger" style="width: 150px;">Cancelar Inscrição</button></td>
           @endif
         </tr>
