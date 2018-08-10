@@ -10,7 +10,7 @@
       </div>
     </form>
 
-    @if($id == 1 || $id == 1513 || $id == 4 || $id == 25 || $id == 2064 || $id == 10)
+    @if($id == 1 || $id == 1513 || $id == 4 || $id == 25 || $id == 2064)
     <form method="GET" action="dashboard" style="float: right;">
       <div class="col-md-6">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
