@@ -27,7 +27,8 @@ Route::get('/search_activity', 'ActivityController@searchActivity')->name('searc
 
 //Dashboard
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-Route::get('/dashboard_search', 'DashboardController@search')->name('dashboard_search');
+Route::get('/subscriptions', 'DashboardController@subscriptions')->name('subscriptions');
+Route::get('/dashboard_activity_users_search', 'DashboardController@searchActivityUsers')->name('dashboard_activity_users_search');
 
 
 #SUBSCRIBE ROUTES

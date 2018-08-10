@@ -12,6 +12,10 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.13/amcharts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.13/pie.js" type="text/javascript"></script>
+
+	
 
 	<title>
 	</title>
@@ -20,13 +24,12 @@
 		text-align: center;
 		margin: auto;
 		width: 90%;
-		background: ##fff;
+		background: #fff;
 		padding: 30px;
 		box-shadow: 1px -1px 69px 0px rgba(27, 126, 27, 0.51);
 		margin-top: 50px;
 	</style>
 	<script>
-
 		var chart;
         var legend;
         var chartData = [{
@@ -35,12 +38,6 @@
             }, {
                 Tipo: "ingressos",
                 Número: 100
-            },{
-                Presenca: "Presentes",
-                Pessoas: 10
-            },{
-                Presenca: "Inscritos",
-                Pessoas: 45
             }];
             AmCharts.ready(function () {
                 // PIE CHART
