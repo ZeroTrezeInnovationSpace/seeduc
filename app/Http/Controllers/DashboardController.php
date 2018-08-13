@@ -151,7 +151,7 @@ class DashboardController extends Controller
      ->sum('activities.maximum_capacity');
 
      $subscriptions_total = $subscriptions_relation->count();
-     
+
 
      return view('dashboard.subscriptions', [
       'subscriptions_relation' => $subscriptions_relation,
@@ -171,7 +171,7 @@ class DashboardController extends Controller
     $user_subscription = Subscription::where('activity_id',$request->input('activity_id'))
     ->where('user_id',$request->input('user_id'))
     ->first();
-    
+
     $user_subscription->check_in = 1;
     $user_subscription->save();
 
@@ -181,7 +181,7 @@ class DashboardController extends Controller
     ->select('activities.id as activity_id','activities.name', 'activities.period', 'activities.beginning_date', 'users.id as user_id', 'users.CPF', 'users.name as username', 'users.phone_number', 'users.email','subscriptions.check_in','subscriptions.created_at')
     ->where('activity_id',$request->input('activity_id'))
     ->paginate(10);
-    
+
     $tickets_total = DB::table('activities')
     ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
     ->join("users","subscriptions.user_id", "=", "users.id")
@@ -190,7 +190,7 @@ class DashboardController extends Controller
     ->sum('activities.maximum_capacity');
 
     $subscriptions_total = $subscriptions_relation->count();
-    
+
     return view('dashboard.subscriptions',  [
       'subscriptions_relation' => $subscriptions_relation,
       'search_user_key' => $request->input('search_user_key'),
@@ -202,7 +202,8 @@ class DashboardController extends Controller
     ->with('bond_id', $request->session()->get('bond_id'))
     ->with('name', $request->session()->get('name'))
     ->with('success', 'Check In efetuado com sucesso');
-    
+  }
+
     public function attendanceList(Request $request){
 
       $subscriptions_relation = DB::table('activities')
@@ -210,6 +211,7 @@ class DashboardController extends Controller
       ->join("users","subscriptions.user_id", "=", "users.id")
       ->select('activities.id as activity_id','activities.name', 'activities.period', 'activities.beginning_date', 'users.id as user_id', 'users.CPF', 'users.name as username', 'users.phone_number', 'users.email','subscriptions.check_in','subscriptions.created_at')
       ->where('activities.id',$request->input('activity_id'))
+      ->orderBy('users.name','asc')
       ->get();
 
       $pdf = PDF::loadView('dashboard.attendanceList', ['subscriptions' => $subscriptions_relation ]);

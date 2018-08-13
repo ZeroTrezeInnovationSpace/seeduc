@@ -6,15 +6,7 @@
         <h1 class="display-3 lead" style="margin: 90px;">Bem-Vindo ao SEEDUC</h1>
 
 </center>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 <div class="center1"> 
         <div id="CPFverification">
                 <form method="POST" action="{{ route('log_in') }}">  
@@ -29,6 +21,15 @@
         <button onclick="location.href='register'"; type="button" class="btn btn-secondary">Cadastrar-se</button>
         <button onclick="location.href='remember_password'"; type="button" class="btn btn-secondary">Redefinir Senha</button>
 </div>
+
+@if( isset($error) )
+<br><br>
+<div class="centerWarning">
+        <div class="alert alert-danger" role="alert">
+                <p class="alert-link" style="color: red; text-align: center;">{{ $error }}</p>
+        </div>
+</div>
+@endif
 
 @if(session()->has('success')) 
     <script type="text/javascript">alert("{{session()->get('success')}}");</script> 
