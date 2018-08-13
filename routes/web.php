@@ -30,6 +30,7 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/subscriptions', 'DashboardController@subscriptions')->name('subscriptions');
 Route::get('/dashboard_activity_search', 'DashboardController@searchActivity')->name('dashboard_activity_search');
 Route::get('/dashboard_users_search', 'DashboardController@searchUsers')->name('dashboard_users_search');
+Route::get('/generate_attendance_list', 'DashboardController@attendanceList')->name('generate_attendance_list');
 Route::post('/admin_check_in', 'DashboardController@checkIn')->name('admin_check_in');
 
 
