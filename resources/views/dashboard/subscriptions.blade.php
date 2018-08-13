@@ -16,6 +16,13 @@
       </div>
     </form>
     <hr>
+    <div>
+      <form method="GET" action="generate_attendance_list">
+        <input class="form-control col-md-10" type="hidden" id="activity_id" name="activity_id" value="{{ $activity_id }}">
+        <button type="submit" class="btn btn-outline-success">Gerar Lista de Presença</button>
+      </form>
+    </div>
+    <br>
   </div> 
   @if(session()->has('success')) 
   <div class="alert alert-success">{{session()->get('success')}}</div> 
@@ -38,7 +45,7 @@
     <tbody>
       @forelse($subscriptions_relation as $subscription)
       <tr>
-        
+
         <td scope="row" name="user_id">{{ $subscription->user_id }}</td>
         <td scope="row" name="user_cpf">{{ $subscription->CPF }}</td>
         <td scope="row" name="user_name">{{ $subscription->username }}</td>
@@ -58,9 +65,9 @@
         </form>
         @else
         <td>
-            <button type="submit" class="btn btn-success" disabled="true">
-              Fazer Check In
-            </button>
+          <button type="submit" class="btn btn-success" disabled="true">
+            Fazer Check In
+          </button>
         </td>
         @endif
       </tr>
