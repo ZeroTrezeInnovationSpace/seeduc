@@ -26,7 +26,11 @@ class DashboardController extends Controller
             ->paginate(10);
 
         #capacidade das atividades, onde a atividade.name like '%%' e total de inscrições
-        $tickets_total = DB::table('activities')->SUM("activities.maximum_capacity"); 
+        $tickets_total = DB::table('activities')
+        ->SUM("activities.maximum_capacity") 
+        ->groupBy("activities.id")
+        ->get();
+
         $subscriptions_total = DB::table('subscriptions')->COUNT("subscriptions.id"); 
 
 
@@ -64,7 +68,8 @@ class DashboardController extends Controller
         ->join("users","subscriptions.user_id", "=", "users.id")
         ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
         ->where('users.name', 'like', '%' . $request->input('search_user_key') . '%') 
-        ->SUM("activities.maximum_capacity");
+        ->distinct("activities.id")
+        ->sum('activities.maximum_capacity');
 
         $subscriptions_total = $subscriptions_relation->count();
          
@@ -101,9 +106,10 @@ class DashboardController extends Controller
         $subscriptions_relation = DB::table('activities')
         ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
         ->select('activities.id','activities.name', 'activities.minimum_quorum', 'activities.maximum_capacity', 'count(subscriptions.id)', 'activities.maximum_capacity - count(subscriptions.id)')
-        ->groupBy("activities.id")
         ->having("activities.maximum_capacity - count(subscriptions.id)",">","0")
+        ->groupBy("activities.id")
         ->paginate(10);
+
         return view('dashboard.subscriptions' , [
             'subscriptions_relation' => $subscriptions_relation
         ])
