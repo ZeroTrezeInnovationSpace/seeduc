@@ -30,10 +30,6 @@ class ActivityController extends Controller
     	}*/
 
      return view('activity.index', ['activities' => Activity::with('event', 'subscribers', 'location', 'bond', 'room')
-        ->where('id', '!=', '51')
-        ->where('id', '!=', '52')
-        ->where('id', '!=', '116')
-        ->where('id', '!=', '166')
         //->whereIn('bond_id', [$request->session()->get('bond_id'),1,2, 3])
         ->orderBy('beginning_date', 'asc')
         ->paginate(10),
