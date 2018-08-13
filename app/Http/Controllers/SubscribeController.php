@@ -63,16 +63,16 @@ class SubscribeController extends Controller
                     return redirect()->action('ActivityController@index')->with('error', 'Possui evento no mesmo horário.');
                 }
             }else{
-             return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
-         }
-     }else{
+               return redirect()->action('ActivityController@index')->with('error', 'Evento com capacidade máxima atingida.'); 
+           }
+       }else{
         return redirect()->action('ActivityController@index')->with('error', 'Já inscrito no evento!');
     }
 }
 
 public function show($id)
 {        
-   return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
+ return view('subscription.show', ['subscriptions' => Subscription::find($id)]);    
 }
 
     /**
@@ -170,7 +170,7 @@ public function show($id)
 
         public function verifyCapacity($activity_id){
             if($activity_id == 14 || $activity_id == 152 || $activity_id == 85 || $activity_id == 159 ||
-               $activity_id == 51 || $activity_id == 52 || $activity_id == 116 || $activity_id == 166 ){
+             $activity_id == 51 || $activity_id == 52 || $activity_id == 116 || $activity_id == 166 ){
                 return 1;
             }
             else{

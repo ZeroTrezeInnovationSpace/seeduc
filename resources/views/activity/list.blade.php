@@ -37,7 +37,7 @@
     @elseif($activity->period == 'VLItarde')
     <td>13h30 às 17h30</td>
     @elseif($activity->period == 'noite')
-    <td>{{$activity->period}}</td>
+    <td>19h às 22h</td>
     @endif
     <td>{{$activity->maximum_capacity}}</td>
     <td>{{$activity->location->name}} - {{$activity->location->full_adress}} 
