@@ -172,6 +172,7 @@ class DashboardController extends Controller
           ->first();
           
           $user_subscription->check_in = 1;
+          $user_subscription->save();
 
           $subscriptions_relation = DB::table('activities')
             ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
@@ -189,9 +190,6 @@ class DashboardController extends Controller
 
           $subscriptions_total = $subscriptions_relation->count();
           
-          
-          try {
-            $user_subscription->save();
             return view('dashboard.subscriptions',  [
             'subscriptions_relation' => $subscriptions_relation,
             'search_user_key' => $request->input('search_user_key'),
@@ -203,20 +201,6 @@ class DashboardController extends Controller
            ->with('bond_id', $request->session()->get('bond_id'))
            ->with('name', $request->session()->get('name'))
            ->with('success', 'Check In efetuado com sucesso');
-          }catch(Exception $e){
-            return view('dashboard.subscriptions',  [
-            'subscriptions_relation' => $subscriptions_relation,
-            'search_user_key' => $request->input('search_user_key'),
-            'tickets_total' => $tickets_total,
-            'activity_id' => $request->input('activity_id'),
-            'subscriptions_total' => $subscriptions_total
-            ])
-           ->with('id', $request->session()->get('id'))
-           ->with('bond_id', $request->session()->get('bond_id'))
-           ->with('name', $request->session()->get('name'))
-           ->with('success', 'Check In efetuado com sucesso')->with('error', 'Erro ao efetuar Check In');
-          }
-          
           
      }
 }
