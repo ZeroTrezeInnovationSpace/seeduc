@@ -27,9 +27,10 @@ class DashboardController extends Controller
 
         #capacidade das atividades, onde a atividade.name like '%%' e total de inscrições
         $tickets_total = DB::table('activities')
-        ->SUM("activities.maximum_capacity") 
-        ->groupBy("activities.id")
-        ->get();
+        ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
+        ->join("users","subscriptions.user_id", "=", "users.id")
+        ->distinct("activities.id")
+        ->sum('activities.maximum_capacity');
 
         $subscriptions_total = DB::table('subscriptions')->COUNT("subscriptions.id"); 
 
