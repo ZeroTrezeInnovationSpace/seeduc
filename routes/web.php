@@ -58,3 +58,6 @@ Route::post('/ticket', 'TicketsController@generate')->name('ticket');
 
 #QUIZ ROUTES
 Route::post('/quiz', 'QuizController@store')->name('quiz');
+
+Route::get('/feedback', 'FeedbackQuizController@feedbackQuiz')->name('feedback');
+Route::post('/feedbackquiz', 'FeedbackQuizController@store')->name('feedbackquiz');
