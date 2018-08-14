@@ -102,7 +102,12 @@
           <td><button type="button" id="eventCertification" class="btn btn-success" disabled>Download</button></td>
           @elseif($subscriber->check_in == '1' && $subscriber->user_id == $id)
           <td><p style="color: green;"> Verificado </p></td>
-          <td><button type="button" id="eventFeedback"  class="btn btn-success">Feedback</button></td>
+          <td>
+            <form method="GET" action="{{ route('feedback') }}">
+              <input type="hidden" name="activity_id" value="{{$activity->id}}">
+              <button type="submit" name="feedback"  class="btn btn-success">Feedback</button>
+            </form>
+          </td>
           <td><button type="button" id="eventCertification" class="btn btn-success">Download</button></td>
           @endif
           @endforeach
