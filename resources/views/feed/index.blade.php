@@ -58,6 +58,7 @@
     </table>   
   </div>
   <br>
+  
   <div id="EventViewTable"  style="display: none;">
    <table class="table table-bordered">
     <thead>

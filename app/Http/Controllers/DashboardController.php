@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id") 
             ->select(DB::raw('count(subscriptions.id) as subscriptions_total , activities.id , activities.name , activities.period, activities.maximum_capacity'))
             ->groupBy('activities.id')
-            ->paginate(1);
+            ->paginate(10);
 
 
 
@@ -103,7 +103,7 @@ class DashboardController extends Controller
             ->select(DB::raw('count(subscriptions.id) as subscriptions_total , activities.id , activities.name , activities.period, activities.maximum_capacity'))
             ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
             ->groupBy('activities.id')
-            ->paginate(1)
+            ->paginate(10)
              ->appends([
               'search_activity_key' => $request->input('search_activity_key')
              ]);
