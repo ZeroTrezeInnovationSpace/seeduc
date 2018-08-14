@@ -6,11 +6,11 @@
   <br>
   <form method="GET" action="search_activity">
     <div class="form-row">
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <input class="form-control col-md-10" type="text" id="search_key" name="search_key" placeholder="Pesquise por Atividades..." title="Type in a name" style="border-radius: 5px 0px 0px 5px;" value='{{ $search_key }}'>
-          <input type="hidden" name="user_id" value="<?php echo($id)?>">
-          <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
-          <button type="submit" class="btn btn-info" style="width: 150px; border-radius: 0px 5px 5px 0px;">Pesquisar</button>
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <input class="form-control col-md-10" type="text" id="search_key" name="search_key" placeholder="Pesquise por Atividades..." title="Type in a name" style="border-radius: 5px 0px 0px 5px;" value='{{ $search_key }}'>
+      <input type="hidden" name="user_id" value="<?php echo($id)?>">
+      <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
+      <button type="submit" class="btn btn-info" style="width: 150px; border-radius: 0px 5px 5px 0px;">Pesquisar</button>
     </div>
   </form>
   <br>
@@ -64,7 +64,10 @@
           <input type="hidden" name="user_id" value="<?php echo($id)?>">
           <input type="hidden" name="bond_id" value="<?php echo($bond_id)?>">
           <input type="hidden" name="activity_id" value="<?php echo($activity->id)?>">
-          <button type="submit" class="btn btn-success" style="width: 150px;">Inscrever-se</button>
+          <!--<button type="submit" class="btn btn-success" style="width: 150px;">Inscrever-se</button>-->
+          <button type="button" onclick="alert('Inscrições encerradas!');" class="btn btn-success" style="width: 150px;">
+            Inscrever-se
+          </button>
         </form>
       </td>
     </tr>

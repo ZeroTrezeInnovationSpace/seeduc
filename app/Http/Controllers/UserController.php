@@ -51,7 +51,7 @@ class UserController extends Controller
 	public function register(Request $request){ 
 		$this->validate($request, [
 			'name' => 'required',
-			'CPF' => 'required|unique:users|numeric|max:11',
+			'CPF' => 'required|unique:users|min:11|max:11',
 			'password' => 'required',
 		]);
 

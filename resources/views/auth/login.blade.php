@@ -18,7 +18,8 @@
                          class="btn btn-success">Começar</button>-->
                 </form>
         </div>  <br>
-        <button onclick="location.href='register'"; type="button" class="btn btn-secondary">Cadastrar-se</button>
+        <!--<button onclick="location.href='register'"; type="button" class="btn btn-secondary">Cadastrar-se</button>-->
+        <button onclick="alert('Inscrições encerradas!');" type="button" class="btn btn-secondary">Cadastrar-se</button>
         <button onclick="location.href='remember_password'"; type="button" class="btn btn-secondary">Redefinir Senha</button>
 </div>
 
