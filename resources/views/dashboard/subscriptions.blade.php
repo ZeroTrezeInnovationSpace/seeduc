@@ -2,7 +2,9 @@
 @section('content')
 
 <div class="center1">
-  <h4 class="display-4"><b>Lista de Inscrições</h4></b><br>
+  @if(isset($subscriptions_relation[0]->name) && !empty($subscriptions_relation[0]->name))
+  <h4 class="display-4"><b>Lista de Inscrições - {{ $subscriptions_relation[0]->name }}</h4></b><br>
+  @endif
   <div id="EventInfoTable">
     <p class="lead"> </p><br>
     <div id="Ingresso" class="col-md-12" style="width: 100%; height: 400px;"></div>

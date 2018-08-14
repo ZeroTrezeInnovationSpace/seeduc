@@ -28,17 +28,16 @@ class DashboardController extends Controller
             ->having("activities.maximum_capacity - count(subscriptions.id)",">","0")
         */
 
-            $activities = DB::table("activities")
-            ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
-            ->select("activities.id","activities.name", "activities.period", "activities.maximum_capacity")
-            ->distinct("activities.id")
-            ->paginate(10);
-
+            $subscriptions_relation = DB::table("activities")
+            ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id") 
+            ->select(DB::raw('count(subscriptions.id) as subscriptions_total , activities.id , activities.name , activities.period, activities.maximum_capacity'))
+            ->groupBy('activities.id')
+            ->paginate(1);
 
 
 
             return view('dashboard.index' , [
-              'activities' => $activities,
+              'subscriptions_relation' => $subscriptions_relation,
               'search_activity_key' => $request->input('search_activity_key')
             ])
             ->with('id', $request->session()->get('id'))
@@ -61,7 +60,10 @@ class DashboardController extends Controller
       ->join("users","subscriptions.user_id", "=", "users.id")
       ->select('activities.id as activity_id','activities.name', 'activities.period', 'activities.beginning_date', 'users.id as user_id', 'users.CPF', 'users.name as username', 'users.phone_number', 'users.email','subscriptions.check_in','subscriptions.created_at')
       ->where('activities.id',$request->input('activity_id'))
-      ->paginate(10);
+      ->paginate(10)
+      ->appends([
+      'activity_id' => $request->input('activity_id')
+      ]);
 
         #capacidade da atividade
       $tickets_total = DB::table('activities')
@@ -83,7 +85,8 @@ class DashboardController extends Controller
         'search_user_key' => $request->input('search_activity_key'),
         'activity_id' => $request->input('activity_id'),
         'tickets_total' => $tickets_total,
-        'subscriptions_total' => $subscriptions_total
+        'subscriptions_total' => $subscriptions_total,
+        'activity_name' => $subscriptions_relation[0]->name
       ])
       ->with('id', $request->session()->get('id'))
       ->with('bond_id', $request->session()->get('bond_id'))
@@ -94,15 +97,18 @@ class DashboardController extends Controller
     public function searchActivity(Request $request)
     {
 
-     $activities = DB::table('activities')
-     ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
-     ->join("users","subscriptions.user_id", "=", "users.id")
-     ->select("activities.id","activities.name", "activities.period", "activities.maximum_capacity")
-     ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
-     ->paginate(10)
-     ->appends([
-      'search_activity_key' => $request->input('search_activity_key')
-    ]);
+
+      $subscriptions_relation = DB::table("activities")
+            ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id") 
+            ->select(DB::raw('count(subscriptions.id) as subscriptions_total , activities.id , activities.name , activities.period, activities.maximum_capacity'))
+            ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
+            ->groupBy('activities.id')
+            ->paginate(1)
+             ->appends([
+              'search_activity_key' => $request->input('search_activity_key')
+             ]);
+            
+     
 
       #capacidade das atividades, onde a atividade.name like '%%' e total de inscrições
 
@@ -112,14 +118,14 @@ class DashboardController extends Controller
      ->distinct('activities.id')
      ->sum('activities.maximum_capacity');
 
-     $subscriptions_total = $activities->count();
+     $subscriptions_total = $subscriptions_relation->count(); 
 
 
      return view('dashboard.index', [
-      'activities' => $activities,
+      'subscriptions_relation' => $subscriptions_relation,
       'search_activity_key' => $request->input('search_activity_key'),
       'tickets_total' => $tickets_total,
-      'subscriptions_total' => $subscriptions_total
+      'subscriptions_total' => $subscriptions_total,
     ])
      ->with('id', $request->session()->get('id'))
      ->with('bond_id', $request->session()->get('bond_id'))
@@ -139,7 +145,7 @@ class DashboardController extends Controller
      ->appends([
       'activity_id' => $request->input('activity_id'),
       'search_user_key' => $request->input('search_user_key'),
-    ]);
+      ]);
 
       #capacidade das atividades, onde a atividade.name like '%%' e total de inscrições
 
@@ -175,33 +181,7 @@ class DashboardController extends Controller
     $user_subscription->check_in = 1;
     $user_subscription->save();
 
-    $subscriptions_relation = DB::table('activities')
-    ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
-    ->join("users","subscriptions.user_id", "=", "users.id")
-    ->select('activities.id as activity_id','activities.name', 'activities.period', 'activities.beginning_date', 'users.id as user_id', 'users.CPF', 'users.name as username', 'users.phone_number', 'users.email','subscriptions.check_in','subscriptions.created_at')
-    ->where('activity_id',$request->input('activity_id'))
-    ->paginate(10);
-
-    $tickets_total = DB::table('activities')
-    ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
-    ->join("users","subscriptions.user_id", "=", "users.id")
-    ->where('activities.id',$request->input('activity_id'))
-    ->distinct('activities.id')
-    ->sum('activities.maximum_capacity');
-
-    $subscriptions_total = $subscriptions_relation->count();
-
-    return view('dashboard.subscriptions',  [
-      'subscriptions_relation' => $subscriptions_relation,
-      'search_user_key' => $request->input('search_user_key'),
-      'tickets_total' => $tickets_total,
-      'activity_id' => $request->input('activity_id'),
-      'subscriptions_total' => $subscriptions_total
-    ])
-    ->with('id', $request->session()->get('id'))
-    ->with('bond_id', $request->session()->get('bond_id'))
-    ->with('name', $request->session()->get('name'))
-    ->with('success', 'Check In efetuado com sucesso');
+    return redirect()->back()->with('success', 'Check In efetuado com sucesso');
   }
 
     public function attendanceList(Request $request){

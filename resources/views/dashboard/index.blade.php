@@ -3,6 +3,7 @@
 
 @extends('layouts.index') 
 @section('content')
+
 <div class="center1">
   <h4 class="display-4"><b>Atividades</h4></b><br>
   <div id="EventInfoTable">
@@ -30,7 +31,7 @@
         <th scope="col">#</th>
       </tr>
     </thead>
-    @forelse($activities as $activity)
+    @forelse($subscriptions_relation as $activity)
        <tr>
         <td scope="row" name="activity_id">{{ $activity->id }}</td>
         <td scope="row" name="activity_name">{{ $activity->name }}</td>
@@ -48,8 +49,8 @@
         <td>{{$activity->period}}</td>
         @endif
         <td scope="row" name="activity_maximum_capacity">{{ $activity->maximum_capacity }}</td>
-        <td scope="row" name="subscriptions_total">10</td>
-        <td scope="row" name="subscriptions_total">{{ $activity->maximum_capacity - 20 }}</td>
+        <td scope="row" name="subscriptions_total">{{ $activity->subscriptions_total }}</td>
+        <td scope="row" name="vacancy_total">{{ $activity->maximum_capacity - $activity->subscriptions_total }}</td>
         <td>
           <form action="subscriptions" method="GET">
               <button type="submit" name="activity_id" value='{{ $activity->id }}' class="btn btn-success">
@@ -64,7 +65,7 @@
     <tbody>
   </table>
   <div class="pagination justify-content-center">
-  {!! $activities->links() !!}
+  {!! $subscriptions_relation->links() !!}
   </div>   
 </div>
 
