@@ -100,7 +100,7 @@
     Número: <?php echo $subscriptions_total?>
   }, {
     Tipo: "Capacidade",
-    Número: <?php echo $tickets_total?>
+    Número: <?php echo $tickets_total-$subscriptions_total?>
   }];
   AmCharts.ready(function () {
                 // PIE CHART
