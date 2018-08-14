@@ -60,7 +60,7 @@
           <td>
             <input type="hidden" name="user_id" value='{{ $subscription->user_id }}'>
             <input type="hidden" name="activity_id" value='{{ $activity_id }}'>
-            <button type="submit" class="btn btn-success">
+            <button onclick="checkInConfirmation()" class="btn btn-success">
               Fazer Check In
             </button>
           </td>

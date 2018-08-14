@@ -183,6 +183,13 @@
 			}
 		}
 
+		function checkInConfirmation() {
+			var answer = confirm('Você tem certeza que quer confirmar a presença desse usuário ?');
+			if (answer == false) {
+				event.returnValue = false; 
+			}
+		}
+
 		$(document).ready(function(){
 			$("#cpf").keyup(function() {
 				var valor = $(this).val().length;
