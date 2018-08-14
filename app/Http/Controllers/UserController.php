@@ -17,7 +17,6 @@ class UserController extends Controller
 	}
 
 	public function logIn(Request $request){ 
-
 		$password = md5($request->password);
 		$users = User::where('CPF', $request->CPF)->where('password', $password)->get();
 		$forgotPassword = $this->forgotPassword($request->CPF);
@@ -52,7 +51,7 @@ class UserController extends Controller
 	public function register(Request $request){ 
 		$this->validate($request, [
 			'name' => 'required',
-			'CPF' => 'required|unique:users|numeric|min:11|max:11',
+			'CPF' => 'required|unique:users|numeric|max:11',
 			'password' => 'required',
 		]);
 
