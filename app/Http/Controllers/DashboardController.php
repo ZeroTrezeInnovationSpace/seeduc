@@ -20,6 +20,9 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+      $id = $request->session()->get('id');
+      if($request->session()->get('id') != null && $request->session()->get('name') != null
+        && ($id == 1 || $id == 153 || $id == 4 || $id == 25 || $id == 2064) ){
         #VIEW COM APRESENTAÇÃO DE RELAÇÃO DE ATIVIDADES E TOTAL DE USUÁRIOS INSCRITOS
 
         /*
@@ -43,7 +46,11 @@ class DashboardController extends Controller
             ->with('id', $request->session()->get('id'))
             ->with('bond_id', $request->session()->get('bond_id'))
             ->with('name', $request->session()->get('name'));
+
+          }else{
+            return view('auth.login');
           }
+        }
 
 
      /**
@@ -62,7 +69,7 @@ class DashboardController extends Controller
       ->where('activities.id',$request->input('activity_id'))
       ->paginate(10)
       ->appends([
-      'activity_id' => $request->input('activity_id')
+        'activity_id' => $request->input('activity_id')
       ]);
 
         #capacidade da atividade
@@ -99,41 +106,41 @@ class DashboardController extends Controller
 
 
       $subscriptions_relation = DB::table("activities")
-            ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id") 
-            ->select(DB::raw('count(subscriptions.id) as subscriptions_total , activities.id , activities.name , activities.period, activities.maximum_capacity'))
-            ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
-            ->groupBy('activities.id')
-            ->paginate(10)
-             ->appends([
-              'search_activity_key' => $request->input('search_activity_key')
-             ]);
-            
-     
+      ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id") 
+      ->select(DB::raw('count(subscriptions.id) as subscriptions_total , activities.id , activities.name , activities.period, activities.maximum_capacity'))
+      ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
+      ->groupBy('activities.id')
+      ->paginate(10)
+      ->appends([
+        'search_activity_key' => $request->input('search_activity_key')
+      ]);
+
+
 
       #capacidade das atividades, onde a atividade.name like '%%' e total de inscrições
 
-     $tickets_total = DB::table('activities')
-     ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
-     ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
-     ->distinct('activities.id')
-     ->sum('activities.maximum_capacity');
+      $tickets_total = DB::table('activities')
+      ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
+      ->where('activities.name', 'like', '%' . $request->input('search_activity_key') . '%')
+      ->distinct('activities.id')
+      ->sum('activities.maximum_capacity');
 
-     $subscriptions_total = $subscriptions_relation->count(); 
+      $subscriptions_total = $subscriptions_relation->count(); 
 
 
-     return view('dashboard.index', [
-      'subscriptions_relation' => $subscriptions_relation,
-      'search_activity_key' => $request->input('search_activity_key'),
-      'tickets_total' => $tickets_total,
-      'subscriptions_total' => $subscriptions_total,
-    ])
-     ->with('id', $request->session()->get('id'))
-     ->with('bond_id', $request->session()->get('bond_id'))
-     ->with('name', $request->session()->get('name'));
-   }
+      return view('dashboard.index', [
+        'subscriptions_relation' => $subscriptions_relation,
+        'search_activity_key' => $request->input('search_activity_key'),
+        'tickets_total' => $tickets_total,
+        'subscriptions_total' => $subscriptions_total,
+      ])
+      ->with('id', $request->session()->get('id'))
+      ->with('bond_id', $request->session()->get('bond_id'))
+      ->with('name', $request->session()->get('name'));
+    }
 
-   public function searchUsers(Request $request)
-   {
+    public function searchUsers(Request $request)
+    {
 
      $subscriptions_relation = DB::table('activities')
      ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
@@ -145,7 +152,7 @@ class DashboardController extends Controller
      ->appends([
       'activity_id' => $request->input('activity_id'),
       'search_user_key' => $request->input('search_user_key'),
-      ]);
+    ]);
 
       #capacidade das atividades, onde a atividade.name like '%%' e total de inscrições
 
@@ -184,20 +191,20 @@ class DashboardController extends Controller
     return redirect()->back()->with('success', 'Check In efetuado com sucesso');
   }
 
-    public function attendanceList(Request $request){
+  public function attendanceList(Request $request){
 
-      $subscriptions_relation = DB::table('activities')
-      ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
-      ->join("users","subscriptions.user_id", "=", "users.id")
-      ->select('activities.id as activity_id','activities.name', 'activities.period', 'activities.beginning_date', 'users.id as user_id', 'users.CPF', 'users.name as username', 'users.phone_number', 'users.email','subscriptions.check_in','subscriptions.created_at')
-      ->where('activities.id',$request->input('activity_id'))
-      ->orderBy('users.name','asc')
-      ->get();
+    $subscriptions_relation = DB::table('activities')
+    ->join("subscriptions", "activities.id", "=", "subscriptions.activity_id")
+    ->join("users","subscriptions.user_id", "=", "users.id")
+    ->select('activities.id as activity_id','activities.name', 'activities.period', 'activities.beginning_date', 'users.id as user_id', 'users.CPF', 'users.name as username', 'users.phone_number', 'users.email','subscriptions.check_in','subscriptions.created_at')
+    ->where('activities.id',$request->input('activity_id'))
+    ->orderBy('users.name','asc')
+    ->get();
 
-      $pdf = PDF::loadView('dashboard.attendanceList', ['subscriptions' => $subscriptions_relation ]);
+    $pdf = PDF::loadView('dashboard.attendanceList', ['subscriptions' => $subscriptions_relation ]);
 
-      return $pdf->download("ListaDePresença".$subscriptions_relation[0]->name.".pdf");
+    return $pdf->download("ListaDePresença".$subscriptions_relation[0]->name.".pdf");
 
-    }
   }
+}
 
