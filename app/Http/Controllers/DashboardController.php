@@ -21,8 +21,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
       $id = $request->session()->get('id');
-      if($request->session()->get('id') != null && $request->session()->get('name') != null
-        && ($id == 1 || $id == 153 || $id == 4 || $id == 25 || $id == 2064) ){
+      if($id == 1 || $id == 1513 || $id == 4 || $id == 25 || $id == 2064){
         #VIEW COM APRESENTAÇÃO DE RELAÇÃO DE ATIVIDADES E TOTAL DE USUÁRIOS INSCRITOS
 
         /*
