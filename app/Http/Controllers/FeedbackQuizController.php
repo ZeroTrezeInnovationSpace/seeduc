@@ -8,6 +8,20 @@ use App\UsersFeedback;
 
 class FeedbackQuizController extends Controller
 {
+
+	public function index(Request $request){
+
+		return view('quiz.indexFeedbackUser', ['quizzes' => FeedbackQuiz::
+			join('users_feedbacks', 'feedback_quizzes.id', '=', 'users_feedbacks.feedback_id')
+			->join('users', 'users.id', '=', 'users_feedbacks.user_id')
+			->where('users_feedbacks.activity_id', $request->input('activity_id'))
+			->get()
+		])
+		->with('id', $request->session()->get('id'))
+		->with('bond_id', $request->session()->get('bond_id'))
+		->with('name', $request->session()->get('name'));
+	}
+
 	public function feedbackQuiz(Request $request){
 		$activity_id = $request->input('activity_id');
 		return view('quiz.feedbackQuiz', ['activity_id' => $activity_id])
@@ -16,8 +30,7 @@ class FeedbackQuizController extends Controller
 		->with('name', $request->session()->get('name'));
 	}
 
-	public function store(Request $request)
-	{
+	public function store(Request $request){
 		#Recebendo o ID do usuário na SESSION
 
 		$id =  $request->session()->get('id');

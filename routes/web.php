@@ -61,3 +61,4 @@ Route::post('/quiz', 'QuizController@store')->name('quiz');
 
 Route::get('/feedback', 'FeedbackQuizController@feedbackQuiz')->name('feedback');
 Route::post('/feedbackquiz', 'FeedbackQuizController@store')->name('feedbackquiz');
+Route::get('/feedbacklist', 'FeedbackQuizController@index')->name('feedbacklist');
