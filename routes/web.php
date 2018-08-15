@@ -53,6 +53,10 @@ Route::post('/location_register', 'LocationController@store')->name('location_re
 Route::get('/room', 'RoomController@create')->name('room');
 Route::post('/room_register', 'RoomController@store')->name('room_register');
 
+#CERTIFICATE ROUTES
+Route::get('/certificate', 'CertificateController@generate')->name('certificate');
+
+
 #TICKETS ROUTES
 Route::post('/ticket', 'TicketsController@generate')->name('ticket');
 

@@ -74,7 +74,7 @@
         <th scope="col">#</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody> 
       @foreach($userActivities as $userActivity)
       <tr>
         @foreach($userActivity->activities as $activity)
@@ -103,13 +103,29 @@
           <td><button type="button" id="eventCertification" class="btn btn-success" disabled>Download</button></td>
           @elseif($subscriber->check_in == '1' && $subscriber->user_id == $id)
           <td><p style="color: green;"> Verificado </p></td>
-          <td>
-            <form method="GET" action="{{ route('feedback') }}">
-              <input type="hidden" name="activity_id" value="{{$activity->id}}">
-              <button type="submit" name="feedback"  class="btn btn-success">Feedback</button>
-            </form>
-          </td>
-          <td><button type="button" id="eventCertification" class="btn btn-success">Download</button></td>
+          @php 
+            $feedback = $usersFeedback->where('activity_id',$activity->id)->first();
+          @endphp
+            @if(isset($feedback->id))
+              <td>
+                <button type="submit" name="feedback"  class="btn btn-success" disabled="true">Feedback</button>
+              </td>
+              <td>
+                <form method="GET" action="{{ route('certificate') }}">
+                  <button type="submit" name='activity_id' value="{{$activity->id}}" class="btn btn-success">Download</button>
+                </form>
+              </td>
+            @else
+              <td>
+                <form method="GET" action="{{ route('feedback') }}">
+                  <input type="hidden" name="activity_id" value="{{$activity->id}}">
+                  <button type="submit" name="feedback"  class="btn btn-success">Feedback</button>
+                </form>
+              </td>
+              <td>
+                <button type="button" id="eventCertification" class="btn btn-success" disabled="true">Download</button>
+              </td>
+            @endif
           @endif
           @endforeach
           @if($subscriber->check_in == '0')

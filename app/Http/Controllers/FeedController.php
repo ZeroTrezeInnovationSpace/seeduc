@@ -7,6 +7,8 @@ use App\User;
 use App\Event;
 use App\Bond;
 use App\Quiz;
+use App\FeedbackQuiz;
+use App\UsersFeedback;
 
 class FeedController extends Controller
 {
@@ -26,8 +28,10 @@ class FeedController extends Controller
     	}*/
         if($request->session()->get('id') != null && $request->session()->get('name') != null){
             $quizes = Quiz::where('user_id', $request->session()->get('id'))->get();
+            $usersFeedback = UsersFeedback::where('user_id', $request->session()->get('id'))->get();
+            
             if(!isset($quizes[0]) ){
-                return view('quiz.quiz', ['bonds' => Bond::all()] )
+                return view('quiz.quiz', ['bonds' => Bond::all(), 'usersFeedback' => $usersFeedback ] )
                 ->with('id', $request->session()->get('id'))
                 ->with('bond_id', $request->session()->get('bond_id'))
                 ->with('name', $request->session()->get('name'));
@@ -35,7 +39,9 @@ class FeedController extends Controller
             
             return view('feed.index', ['userActivities' => User::with('activities', 'activities.event', 
                 'activities.subscribers')
-            ->where('id', $request->session()->get('id'))->get(), 'events' => Event::all()])
+            ->where('id', $request->session()->get('id'))->get(),
+            'events' => Event::all(),
+            'usersFeedback' => $usersFeedback])
             ->with('id', $request->session()->get('id'))
             ->with('bond_id', $request->session()->get('bond_id'))
             ->with('name', $request->session()->get('name'));
