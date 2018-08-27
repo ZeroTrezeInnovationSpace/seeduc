@@ -99,7 +99,7 @@
           @foreach($activity->subscribers as $subscriber)
           @if($subscriber->check_in == '0' && $subscriber->user_id == $id)
           <td><p style="color: red;"> Não Realizado </p></td>
-          <td><button type="button" id="eventFeedback"  class="btn btn-success" disabled>Feedback</button></td>
+          <td></td>
           <td><button type="button" id="eventCertification" class="btn btn-success" disabled>Download</button></td>
           @elseif($subscriber->check_in == '1' && $subscriber->user_id == $id)
           <td><p style="color: green;"> Verificado </p></td>
