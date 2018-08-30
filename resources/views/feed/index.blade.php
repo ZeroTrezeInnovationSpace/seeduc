@@ -1,6 +1,11 @@
 @extends('layouts.index') 
 @section('content')
 
+	<div class="center1">
+		<div class="alert alert-danger" role="alert">
+			<p class="alert-link" style="color: black; text-align: center;"> CARO SERVIDOR QUALQUER DIVERGÊNCIA ENTRAR EM CONTATO COM A SECRETARIA DE EDUCAÇÃO PELO Nº 32111818, RAMAL 1949 ou 1963 </p>
+		</div>
+	</div>
 <div class="center1">
   <div class="row">
     <form method="GET" action="manage_user" style="float: left;">
