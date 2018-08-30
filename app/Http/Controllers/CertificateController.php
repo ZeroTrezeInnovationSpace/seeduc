@@ -11,14 +11,17 @@ class CertificateController extends Controller
     public function generate(Request $request){
         $id = $request->input('activity_id');
         
-        $activity = Activity::with('users')
+        $activity = Activity::with(array(
+        'users' => function ($query) use ($request) 
+        {
+            $query->where('user_id', $request->session()->get('id'));
+        }))
         ->with(array(
         'subscribers' => function($query) use ($request)
 		{
 		     $query->where('user_id', $request->session()->get('id'))
 		     ->where('activity_id', $request->input('activity_id'));
 		}))
-        ->where('id', $id)
 		->first();
 
         
