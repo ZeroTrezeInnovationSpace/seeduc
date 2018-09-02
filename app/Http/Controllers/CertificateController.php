@@ -4,28 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
-use App\Activity;
+use App\Subscription;
 
 class CertificateController extends Controller
 {
     public function generate(Request $request){
-        $id = $request->input('activity_id');
+        $activity_id = $request->input('activity_id');
+        $user_id = $request->session()->get('id');
         
-        $activity = Activity::with(array(
-        'users' => function ($query) use ($request) 
-        {
-            $query->where('user_id', $request->session()->get('id'));
-        }))
-        ->with(array(
-        'subscribers' => function($query) use ($request)
-		{
-		     $query->where('user_id', $request->session()->get('id'))
-		     ->where('activity_id', $request->input('activity_id'));
-		}))
-		->first();
-
+        $subscription = Subscription::with('activity','user')
+        ->where('activity_id', $activity_id)
+        ->where('user_id', $user_id)
+        ->get();
         
-        $pdf = PDF::loadView('certificate.certificate',['activity' => $activity]);
+        $pdf = PDF::loadView('certificate.certificate',['subscription' => $subscription]);
         return $pdf->download("certificado.pdf");
     }
 }

@@ -19,7 +19,7 @@
   </nav>
   <div style="text-align: center;">
 
-    <p style="font-size: 28px;">Certificamos que {{ $activity->users[0]->name }} <br> participou da 30º Semana da Educação Paulo Freire com o tema <br><b>"{{ $activity->name }}"</b> </p>
+    <p style="font-size: 28px;">Certificamos que {{ $subscription[0]->user->name }} <br> participou da 30º Semana da Educação Paulo Freire com o tema <br><b>"{{ $subscription[0]->activity->name }}"</b> </p>
     <p style="font-size: 23px;"> Carga Horária de 4 horas.</p>
     <p style="font-size: 23px;"> Santos, {{ date('d/m/Y H:i:s') }}.</p>
 
